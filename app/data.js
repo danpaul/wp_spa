@@ -18,15 +18,9 @@ var mod = {
 	setIn: function(keys, value){
 		mod._notifyListeners();	
 	},
-	get: function(){
-		return data;
-	},
-	subscribe: function(callback){
-		callbacks.push(callback);
-	},
-	_notifyListeners: function(){
-		_.each(callbacks, function(c){ c(data); });
-	}
+	get: function(){ return data; },
+	subscribe: function(callback){ callbacks.push(callback); },
+	_notifyListeners: function(){ _.each(callbacks, function(c){ c(data); }); }
 }
 
 module.exports = mod;
