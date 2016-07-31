@@ -3,7 +3,8 @@ var Immutable = require('immutable');
 
 var callbacks = [];
 var data = Immutable.fromJS({
-	posts: []
+	posts: [],
+	mainMenu: {}
 });
 
 var mod = {

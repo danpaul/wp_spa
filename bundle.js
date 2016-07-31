@@ -405,9 +405,9 @@
 	var ReactDOM = __webpack_require__(38);
 	var Root = __webpack_require__(177);
 
-	var data = __webpack_require__(178);
+	var data = __webpack_require__(181);
 	var options = { data: data, siteUrl: breczinski.siteUrl };
-	var controllers = new (__webpack_require__(181))(options);
+	var controllers = new (__webpack_require__(182))(options);
 
 	var BaseComponent = React.createClass({
 		displayName: 'BaseComponent',
@@ -21468,9 +21468,10 @@
 
 	'use strict';
 
-	var _ = __webpack_require__(179);
+	var _ = __webpack_require__(178);
 	var React = __webpack_require__(6);
-	var Post = __webpack_require__(186);
+	var Menu = __webpack_require__(188);
+	var Post = __webpack_require__(179);
 	var Immutable = __webpack_require__(180);
 
 	module.exports = React.createClass({
@@ -21478,14 +21479,20 @@
 
 		componentDidMount: function componentDidMount() {
 			this.props.controllers.post.load();
+			this.props.controllers.menu.loadMain();
 		},
 		render: function render() {
+			// main menu
+			// console.log(this.props.data.get('mainMenu'))
 			var postElements = this.props.data.get('posts').map(function (p) {
 				return React.createElement(Post, { key: p.get('id'), post: p });
 			});
+			var menu = null;
+
 			return React.createElement(
 				'div',
 				null,
+				this.props.data.get('mainMenu').size ? React.createElement(Menu, { menu: this.props.data.get('mainMenu') }) : null,
 				this.props.data.get('posts').map(function (p) {
 					return React.createElement(Post, { key: p.get('id'), post: p });
 				})
@@ -21495,37 +21502,6 @@
 
 /***/ },
 /* 178 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _ = __webpack_require__(179);
-	var Immutable = __webpack_require__(180);
-
-	var callbacks = [];
-	var data = Immutable.fromJS({
-		posts: []
-	});
-
-	var mod = {
-		set: function(key, value){
-			if( _.isArray(value) || _.isObject(value) ){
-				data = data.set(key, Immutable.fromJS(value));
-			} else {
-				data = data.set(key, value);
-			}
-			mod._notifyListeners();
-		},
-		setIn: function(keys, value){
-			mod._notifyListeners();	
-		},
-		get: function(){ return data; },
-		subscribe: function(callback){ callbacks.push(callback); },
-		_notifyListeners: function(){ _.each(callbacks, function(c){ c(data); }); }
-	}
-
-	module.exports = mod;
-
-/***/ },
-/* 179 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;//     Underscore.js 1.8.3
@@ -23077,6 +23053,32 @@
 	  }
 	}.call(this));
 
+
+/***/ },
+/* 179 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var Immutable = __webpack_require__(180);
+	var React = __webpack_require__(6);
+	var Post = __webpack_require__(179);
+
+	module.exports = React.createClass({
+		displayName: 'exports',
+
+		render: function render() {
+			var title = this.props.post.getIn(['title', 'rendered']);;
+			var content = this.props.post.getIn(['content', 'rendered']);
+
+			return React.createElement(
+				'div',
+				null,
+				React.createElement('div', { dangerouslySetInnerHTML: { __html: title } }),
+				React.createElement('div', { dangerouslySetInnerHTML: { __html: content } })
+			);
+		}
+	});
 
 /***/ },
 /* 180 */
@@ -28066,18 +28068,51 @@
 /* 181 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _ = __webpack_require__(179);
+	var _ = __webpack_require__(178);
+	var Immutable = __webpack_require__(180);
+
+	var callbacks = [];
+	var data = Immutable.fromJS({
+		posts: [],
+		mainMenu: {}
+	});
+
+	var mod = {
+		set: function(key, value){
+			if( _.isArray(value) || _.isObject(value) ){
+				data = data.set(key, Immutable.fromJS(value));
+			} else {
+				data = data.set(key, value);
+			}
+			mod._notifyListeners();
+		},
+		setIn: function(keys, value){
+			mod._notifyListeners();	
+		},
+		get: function(){ return data; },
+		subscribe: function(callback){ callbacks.push(callback); },
+		_notifyListeners: function(){ _.each(callbacks, function(c){ c(data); }); }
+	}
+
+	module.exports = mod;
+
+/***/ },
+/* 182 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(178);
 	// var superagent = require('superagent-cache')();
-	var superagent = __webpack_require__(182);
+	var superagent = __webpack_require__(183);
 
 	var CONTROLLERS = {
-	    post: __webpack_require__(185),
+	    post: __webpack_require__(186),
+	    menu: __webpack_require__(187)
 	}
 
 	module.exports = function(options){
 		var self = this;
 		_.each(CONTROLLERS, function(ControllerClass, controllerName){
-			var c = new ControllerClass({	controllers: self.controllers,
+			var c = new ControllerClass({	controllers: self,
 											data: options.data,
 											superagent: superagent,
 											siteUrl: options.siteUrl	});
@@ -28086,15 +28121,15 @@
 	}
 
 /***/ },
-/* 182 */
+/* 183 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Module dependencies.
 	 */
 
-	var Emitter = __webpack_require__(183);
-	var reduce = __webpack_require__(184);
+	var Emitter = __webpack_require__(184);
+	var reduce = __webpack_require__(185);
 
 	/**
 	 * Root reference for iframes.
@@ -29283,7 +29318,7 @@
 
 
 /***/ },
-/* 183 */
+/* 184 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -29452,7 +29487,7 @@
 
 
 /***/ },
-/* 184 */
+/* 185 */
 /***/ function(module, exports) {
 
 	
@@ -29481,10 +29516,10 @@
 	};
 
 /***/ },
-/* 185 */
+/* 186 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _ = __webpack_require__(179);
+	var _ = __webpack_require__(178);
 	module.exports = function(options){
 
 	    var controllers = options.controllers;
@@ -29507,27 +29542,66 @@
 	}
 
 /***/ },
-/* 186 */
+/* 187 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(178);
+	module.exports = function(options){
+
+	    var controllers = options.controllers;
+	    var data = options.data;
+	    var superagent = options.superagent;
+	    var siteUrl = options.siteUrl;
+
+	    this.loadMain = function(callbackIn){
+	    	var self = this;
+	    	var uri = siteUrl + '/wp-json/wp-api-menus/v2/menus';
+			superagent
+		  		.get(uri)
+		  		.end(function (err, response){
+		  			if( err ){ return console.log(err); }
+		  			if( !response.body || !_.isArray(response.body) ){
+		  				return console.log(new Error('No menu'));
+		  			}
+		  			self._loadMainMenuDetails({id: response.body[0]['ID']});
+		  		}
+			);
+	    }
+	    this._loadMainMenuDetails = function(options){
+	    	var uri = siteUrl + '/wp-json/wp-api-menus/v2/menus/' + options.id;
+			superagent
+		  		.get(uri)
+		  		.end(function (err, response){
+		  			if( err ){ return console.log(err); }
+		  			if( !response.body ){
+		  				return console.log(new Error('No menu'));
+		  			}
+		  			data.set('mainMenu', response.body);
+		  		}
+			);
+	    }
+	}
+
+/***/ },
+/* 188 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var Immutable = __webpack_require__(180);
 	var React = __webpack_require__(6);
-	var Post = __webpack_require__(186);
 
 	module.exports = React.createClass({
 		displayName: 'exports',
 
 		render: function render() {
-			var title = this.props.post.getIn(['title', 'rendered']);;
-			var content = this.props.post.getIn(['content', 'rendered']);
+
+			console.log('menu props', this.props);
 
 			return React.createElement(
 				'div',
 				null,
-				React.createElement('div', { dangerouslySetInnerHTML: { __html: title } }),
-				React.createElement('div', { dangerouslySetInnerHTML: { __html: content } })
+				'Menu'
 			);
 		}
 	});
