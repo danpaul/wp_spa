@@ -405,9 +405,9 @@
 	var ReactDOM = __webpack_require__(38);
 	var Root = __webpack_require__(177);
 
-	var data = __webpack_require__(187);
-	var controllers = new (__webpack_require__(188))({ data: data, siteUrl: breczinski.siteUrl });
-	var router = new (__webpack_require__(195))({ controllers: controllers, data: data });
+	var data = __webpack_require__(188);
+	var controllers = new (__webpack_require__(189))({ data: data, siteUrl: breczinski.siteUrl });
+	var router = new (__webpack_require__(196))({ controllers: controllers, data: data });
 
 	var BaseComponent = React.createClass({
 		displayName: 'BaseComponent',
@@ -415,7 +415,6 @@
 		componentDidMount: function componentDidMount() {
 			data.subscribe(this.forceUpdate.bind(this));
 			controllers.url.setParamsFromUrl();
-			// controllers.menu.loadMain();
 			router.navigate();
 		},
 		render: function render() {
@@ -21467,15 +21466,14 @@
 	'use strict';
 
 	var _ = __webpack_require__(178);
+	var BaseComponent = __webpack_require__(179);
 	var React = __webpack_require__(6);
-	var Menu = __webpack_require__(179);
-	var Posts = __webpack_require__(181);
+	var Menu = __webpack_require__(182);
+	var Posts = __webpack_require__(184);
 	var Url = __webpack_require__(186);
-	var Immutable = __webpack_require__(180);
+	var Immutable = __webpack_require__(187);
 
-	module.exports = React.createClass({
-		displayName: 'exports',
-
+	module.exports = BaseComponent.createClass({
 		componentWillMount: function componentWillMount() {
 			this.props.controllers.menu.loadMain();
 		},
@@ -23048,31 +23046,229 @@
 /* 179 */
 /***/ function(module, exports, __webpack_require__) {
 
+	var React = __webpack_require__(6);
+	var shallowCompare = __webpack_require__(180);
+
+	module.exports = {
+		createClass: function(component){
+			if( !component.shouldComponentUpdate ){
+				// if using strictly immuatable state, will prevent unecessary re-renders
+				component.shouldComponentUpdate = function(nextProps, nextState){
+					return shallowCompare(this, nextProps, nextState);
+				}
+			}
+			if( !component.render ){
+				component.render = function(){ return null; }
+			}
+			return React.createClass(component);
+		}
+	};
+
+/***/ },
+/* 180 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(181);
+
+/***/ },
+/* 181 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	* @providesModule shallowCompare
+	*/
+
 	'use strict';
 
-	var Immutable = __webpack_require__(180);
+	var shallowEqual = __webpack_require__(138);
+
+	/**
+	 * Does a shallow comparison for props and state.
+	 * See ReactComponentWithPureRenderMixin
+	 * See also https://facebook.github.io/react/docs/shallow-compare.html
+	 */
+	function shallowCompare(instance, nextProps, nextState) {
+	  return !shallowEqual(instance.props, nextProps) || !shallowEqual(instance.state, nextState);
+	}
+
+	module.exports = shallowCompare;
+
+/***/ },
+/* 182 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var BaseComponent = __webpack_require__(179);
+	var MenuItem = __webpack_require__(183);
 	var React = __webpack_require__(6);
 
-	module.exports = React.createClass({
-		displayName: 'exports',
-
+	module.exports = BaseComponent.createClass({
 		render: function render() {
 			if (!this.props.menu.size) {
 				return null;
 			}
-
-			// console.log('menu props', this.props)
-
 			return React.createElement(
-				'div',
+				'ul',
 				null,
-				'Menu'
+				this.props.menu.get('items').map(function (menuItem) {
+					return React.createElement(MenuItem, { key: menuItem.get('id'), menuItem: menuItem });
+				})
 			);
 		}
 	});
 
 /***/ },
-/* 180 */
+/* 183 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var BaseComponent = __webpack_require__(179);
+	var React = __webpack_require__(6);
+
+	var MenuItem = BaseComponent.createClass({
+		handleClick: function handleClick() {
+			var l = this.props.menuItem.get('object');
+			switch (l) {
+				case 'category':
+					console.log('in category');
+					break;
+				case 'page':
+					console.log('in page');
+					break;
+				case 'post':
+					console.log('in post');
+					break;
+				default:
+					console.log(new Error('Unknown link type'), l);
+			}
+		},
+		render: function render() {
+			var children = null;
+			if (this.props.menuItem.get('children')) {
+				children = React.createElement(
+					'ul',
+					null,
+					this.props.menuItem.get('children').map(function (menuItem) {
+						return React.createElement(MenuItem, { key: menuItem.get('id'), menuItem: menuItem });
+					})
+				);
+			}
+			return React.createElement(
+				'li',
+				null,
+				React.createElement(
+					'a',
+					{ onClick: this.handleClick },
+					this.props.menuItem.get('title')
+				),
+				children
+			);
+		}
+	});
+
+	module.exports = MenuItem;
+
+/***/ },
+/* 184 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var BaseComponent = __webpack_require__(179);
+	var Post = __webpack_require__(185);
+	var React = __webpack_require__(6);
+
+	module.exports = BaseComponent.createClass({
+		render: function render() {
+			if (!this.props.posts.size) {
+				return null;
+			}
+			return React.createElement(
+				'div',
+				null,
+				this.props.posts.map(function (post) {
+					return React.createElement(Post, { key: post.get('id'), post: post });
+				})
+			);
+		}
+	});
+
+/***/ },
+/* 185 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var BaseComponent = __webpack_require__(179);
+	var React = __webpack_require__(6);
+
+	module.exports = BaseComponent.createClass({
+		render: function render() {
+			var title = this.props.post.getIn(['title', 'rendered']);;
+			var content = this.props.post.getIn(['content', 'rendered']);
+
+			return React.createElement(
+				'div',
+				null,
+				React.createElement('div', { dangerouslySetInnerHTML: { __html: title } }),
+				React.createElement('div', { dangerouslySetInnerHTML: { __html: content } })
+			);
+		}
+	});
+
+/***/ },
+/* 186 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var BaseComponent = __webpack_require__(179);
+	var React = __webpack_require__(6);
+
+	module.exports = BaseComponent.createClass({
+		updateUrl: function updateUrl() {
+			try {
+				var url = this._getUrl() + this._getQueryString(this.props.urlState.toJS());
+				window.history.pushState(null, null, url);
+			} catch (e) {
+				console.log(console.log(e));
+			}
+		},
+		_getQueryString: function _getQueryString(params) {
+			var queryString = '';
+			for (var key in params) {
+				if (queryString !== '') {
+					queryString += '&';
+				} else {
+					queryString += '?';
+				}
+				queryString += key + "=" + encodeURIComponent(params[key]);
+			}
+			return queryString;
+		},
+		_getUrl: function _getUrl() {
+			return [location.protocol, '//', location.host, location.pathname].join('');
+		},
+		render: function render() {
+			if (!this.props.urlState) {
+				return null;
+			}
+			this.updateUrl();
+			return null;
+		}
+	});
+
+/***/ },
+/* 187 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -28056,159 +28252,11 @@
 	}));
 
 /***/ },
-/* 181 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var BaseComponent = __webpack_require__(182);
-	var Post = __webpack_require__(185);
-	var React = __webpack_require__(6);
-
-	module.exports = BaseComponent.createClass({
-		render: function render() {
-			if (!this.props.posts.size) {
-				return null;
-			}
-			return React.createElement(
-				'div',
-				null,
-				this.props.posts.map(function (post) {
-					return React.createElement(Post, { key: post.get('id'), post: post });
-				})
-			);
-		}
-	});
-
-/***/ },
-/* 182 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(6);
-	var shallowCompare = __webpack_require__(183);
-
-	module.exports = {
-		createClass: function(component){
-			if( !component.shouldComponentUpdate ){
-				// if using strictly immuatable state, will prevent unecessary re-renders
-				component.shouldComponentUpdate = function(nextProps, nextState){
-					return shallowCompare(this, nextProps, nextState);
-				}
-			}
-			if( !component.render ){
-				component.render = function(){ return null; }
-			}
-			return React.createClass(component);
-		}
-	};
-
-/***/ },
-/* 183 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__(184);
-
-/***/ },
-/* 184 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	* @providesModule shallowCompare
-	*/
-
-	'use strict';
-
-	var shallowEqual = __webpack_require__(138);
-
-	/**
-	 * Does a shallow comparison for props and state.
-	 * See ReactComponentWithPureRenderMixin
-	 * See also https://facebook.github.io/react/docs/shallow-compare.html
-	 */
-	function shallowCompare(instance, nextProps, nextState) {
-	  return !shallowEqual(instance.props, nextProps) || !shallowEqual(instance.state, nextState);
-	}
-
-	module.exports = shallowCompare;
-
-/***/ },
-/* 185 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var BaseComponent = __webpack_require__(182);
-	var React = __webpack_require__(6);
-
-	module.exports = BaseComponent.createClass({
-		render: function render() {
-			var title = this.props.post.getIn(['title', 'rendered']);;
-			var content = this.props.post.getIn(['content', 'rendered']);
-
-			return React.createElement(
-				'div',
-				null,
-				React.createElement('div', { dangerouslySetInnerHTML: { __html: title } }),
-				React.createElement('div', { dangerouslySetInnerHTML: { __html: content } })
-			);
-		}
-	});
-
-/***/ },
-/* 186 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var BaseComponent = __webpack_require__(182);
-	var React = __webpack_require__(6);
-
-	module.exports = BaseComponent.createClass({
-		updateUrl: function updateUrl() {
-			try {
-				var url = this._getUrl() + this._getQueryString(this.props.urlState.toJS());
-				window.history.pushState(null, null, url);
-			} catch (e) {
-				console.log(console.log(e));
-			}
-		},
-		_getQueryString: function _getQueryString(params) {
-			var queryString = '';
-			for (var key in params) {
-				if (queryString !== '') {
-					queryString += '&';
-				} else {
-					queryString += '?';
-				}
-				queryString += key + "=" + encodeURIComponent(params[key]);
-			}
-			return queryString;
-		},
-		_getUrl: function _getUrl() {
-			return [location.protocol, '//', location.host, location.pathname].join('');
-		},
-		render: function render() {
-			if (!this.props.urlState) {
-				return null;
-			}
-			this.updateUrl();
-			return null;
-		}
-	});
-
-/***/ },
-/* 187 */
+/* 188 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _ = __webpack_require__(178);
-	var Immutable = __webpack_require__(180);
+	var Immutable = __webpack_require__(187);
 
 	var callbacks = [];
 	var data = Immutable.fromJS({
@@ -28247,16 +28295,16 @@
 	module.exports = mod;
 
 /***/ },
-/* 188 */
+/* 189 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _ = __webpack_require__(178);
-	var superagent = __webpack_require__(189);
+	var superagent = __webpack_require__(190);
 
 	var CONTROLLERS = {
-	    menu: __webpack_require__(192),
-	    post: __webpack_require__(193),
-	    url: __webpack_require__(194)
+	    menu: __webpack_require__(193),
+	    post: __webpack_require__(194),
+	    url: __webpack_require__(195)
 	}
 
 	module.exports = function(options){
@@ -28271,15 +28319,15 @@
 	}
 
 /***/ },
-/* 189 */
+/* 190 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Module dependencies.
 	 */
 
-	var Emitter = __webpack_require__(190);
-	var reduce = __webpack_require__(191);
+	var Emitter = __webpack_require__(191);
+	var reduce = __webpack_require__(192);
 
 	/**
 	 * Root reference for iframes.
@@ -29468,7 +29516,7 @@
 
 
 /***/ },
-/* 190 */
+/* 191 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -29637,7 +29685,7 @@
 
 
 /***/ },
-/* 191 */
+/* 192 */
 /***/ function(module, exports) {
 
 	
@@ -29666,7 +29714,7 @@
 	};
 
 /***/ },
-/* 192 */
+/* 193 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _ = __webpack_require__(178);
@@ -29707,7 +29755,7 @@
 	}
 
 /***/ },
-/* 193 */
+/* 194 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _ = __webpack_require__(178);
@@ -29733,7 +29781,7 @@
 	}
 
 /***/ },
-/* 194 */
+/* 195 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _ = __webpack_require__(178);
@@ -29764,7 +29812,7 @@
 	}
 
 /***/ },
-/* 195 */
+/* 196 */
 /***/ function(module, exports) {
 
 	module.exports = function(options){
@@ -29773,10 +29821,7 @@
 		var data = options.data;
 
 		var navigate = this.navigate = function(params = null){
-			// update params if not initial load
-			if( params ){
-				data.set('urlState', params);
-			}
+			if( params ){ data.set('urlState', params); }
 			var urlState = data.get('urlState').toJS();
 			switch(urlState.view){
 				case 'home':
