@@ -29727,9 +29727,9 @@
 
 	    this.loadMain = function(callbackIn){
 	    	var self = this;
-	    	var uri = siteUrl + '/wp-json/wp-api-menus/v2/menus';
 			superagent
-		  		.get(uri)
+		  		.get(siteUrl)
+		  		.query({ rest_route: '/wp-api-menus/v2/menus' })
 		  		.end(function (err, response){
 		  			if( err ){ return console.log(err); }
 		  			if( !response.body || !_.isArray(response.body) ){
@@ -29740,9 +29740,10 @@
 			);
 	    }
 	    this._loadMainMenuDetails = function(options){
-	    	var uri = siteUrl + '/wp-json/wp-api-menus/v2/menus/' + options.id;
+	    	var query = '/wp-api-menus/v2/menus/' + options.id;
 			superagent
-		  		.get(uri)
+		  		.get(siteUrl)
+		  		.query({ rest_route: query })
 		  		.end(function (err, response){
 		  			if( err ){ return console.log(err); }
 		  			if( !response.body ){
@@ -29766,15 +29767,19 @@
 	    var superagent = options.superagent;
 	    var siteUrl = options.siteUrl;
 
-	    this.load = function(){
-	    	var uri = siteUrl + '/wp-json/wp/v2/posts';
+	    this.load = function(options){
+	    	var query = { rest_route: '/wp/v2/posts' };
+	    	if( options.category ){
+	    		query.categories = [options.category];
+	    	}
 			superagent
-		  		.get(uri)
+		  		.get(siteUrl)
+		  		.query(query)
 		  		.end(function (err, response){
 		  			if( err ){ return console.log(err); }
 		  			if( response.body && _.isArray(response.body) ){
 		  				data.set('posts', response.body);
-		  			}	  			
+		  			}
 		  		}
 			);
 	    }
@@ -29791,9 +29796,10 @@
 	    var data = options.data;
 	    var superagent = options.superagent;
 
-	    var DEFAULT_STATE = {view: 'home'};
+	    // var DEFAULT_STATE = {view: 'home'};
 
 	    this.setParamsFromUrl = function(){
+	console.log('parseParams', this.parseParams());
 	    	data.set('urlState', this.parseParams());
 	    }
 
@@ -29803,7 +29809,8 @@
 		    var search = /([^&=]+)=?([^&]*)/g;
 		    var decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); };
 		    var query  = window.location.search.substring(1);
-		    var urlState = _.clone(DEFAULT_STATE);
+		    // var urlState = _.clone(DEFAULT_STATE);
+		    var urlState = {};
 		    while(match = search.exec(query)){
 		       urlState[decode(match[1])] = decode(match[2]);
 		    }
@@ -29823,6 +29830,15 @@
 		var navigate = this.navigate = function(params = null){
 			if( params ){ data.set('urlState', params); }
 			var urlState = data.get('urlState').toJS();
+	console.log('urlState.cat', urlState.cat)
+			if( urlState.cat ){
+				return controllers.post.load({categoryId: urlState.cat});
+			} else if( urlState.view === 'home'){
+				return controllers.post.load({categoryId: urlState.cat});
+			} else {
+				return this.navigate({view: 'home'});
+			}
+	return;
 			switch(urlState.view){
 				case 'home':
 					controllers.post.load();

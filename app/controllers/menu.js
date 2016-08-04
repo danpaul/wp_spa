@@ -8,9 +8,9 @@ module.exports = function(options){
 
     this.loadMain = function(callbackIn){
     	var self = this;
-    	var uri = siteUrl + '/wp-json/wp-api-menus/v2/menus';
 		superagent
-	  		.get(uri)
+	  		.get(siteUrl)
+	  		.query({ rest_route: '/wp-api-menus/v2/menus' })
 	  		.end(function (err, response){
 	  			if( err ){ return console.log(err); }
 	  			if( !response.body || !_.isArray(response.body) ){
@@ -21,9 +21,10 @@ module.exports = function(options){
 		);
     }
     this._loadMainMenuDetails = function(options){
-    	var uri = siteUrl + '/wp-json/wp-api-menus/v2/menus/' + options.id;
+    	var query = '/wp-api-menus/v2/menus/' + options.id;
 		superagent
-	  		.get(uri)
+	  		.get(siteUrl)
+	  		.query({ rest_route: query })
 	  		.end(function (err, response){
 	  			if( err ){ return console.log(err); }
 	  			if( !response.body ){

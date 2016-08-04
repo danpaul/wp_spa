@@ -14,5 +14,4 @@ Requires Webpack to build
 
 ## Notes
 
-http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
-https://developer.mozilla.org/en-US/docs/Web/API/WindowEventHandlers/onpopstate
+http://localhost:8888/wptest/?cat=1
