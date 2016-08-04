@@ -1,8 +1,7 @@
-var Immutable = require('immutable');
+var BaseComponent = require('../lib/baseComponent');
 var React = require('react');
-var Post = require('./post.jsx');
 
-module.exports = React.createClass({
+module.exports = BaseComponent.createClass({
 	render: function() {
 		var title = this.props.post.getIn(['title', 'rendered']);;
 		var content = this.props.post.getIn(['content', 'rendered']);

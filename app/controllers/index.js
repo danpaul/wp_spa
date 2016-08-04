@@ -1,10 +1,10 @@
 var _ = require('underscore');
-// var superagent = require('superagent-cache')();
 var superagent = require('superagent');
 
 var CONTROLLERS = {
+    menu: require('./menu.js'),
     post: require('./post.js'),
-    menu: require('./menu.js')
+    url: require('./url.js')
 }
 
 module.exports = function(options){

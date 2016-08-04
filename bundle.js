@@ -82,7 +82,7 @@
 
 
 	// module
-	exports.push([module.id, "/*\nTheme Name: Webpack test\nAuthor: Dan Breczinski\n*/\n/* Base styles */\n\n\na strong {\n  color: inherit;\n}\n\nhr {\n  background: none;\n  border: none;\n  border-bottom: 1px solid #d8dee9;\n}\n\nimg {\n  height: auto;\n  max-width: 100%;\n}\n\npre {\n  overflow: auto;\n  white-space: pre-wrap;\n}\n\nfooter {\n  align-items: center;\n  display: flex;\n  justify-content: center;\n  margin-top: 4em;\n  text-align: center;\n}\n\n/* Initial state */\n\n#visited {\n  background-color: white;\n  bottom: 0;\n  color: white;\n  display: block;\n  left: 0;\n  padding: 1em;\n  position: fixed;\n  right: 0;\n  text-align: center;\n}\n\n#visited:visited {\n  background-color: #e81c4f;\n}\n\n#logo,\nsection,\nfooter {\n  display: none;\n}\n\n#start {\n  display: block;\n}\n\n/* 00 Content */\n\nhtml.step0 #content {\n  display: block;\n}\n\n/* 01 Centering */\n\nhtml.step1 #centering {\n  display: block;\n}\n\nhtml.step1 header,\nhtml.step1 main {\n  margin: 0 auto;\n  max-width: 50em;\n}\n\n/* 02 Font family */\n\nhtml.step2 #font-family {\n  display: block;\n}\n\nhtml.step2 body {\n  font-family: \"Helvetica\", \"Arial\", sans-serif;\n}\n\n/* 03 Spacing */\n\nhtml.step3 #spacing {\n  display: block;\n}\n\nhtml.step3 body {\n  line-height: 1.5;\n  padding: 4em 1em;\n}\n\nhtml.step3 h2 {\n  margin-top: 1em;\n  padding-top: 1em;\n}\n\n/* 04 Color and contrast */\n\nhtml.step4 #color-contrast {\n  display: block;\n}\n\nhtml.step4 body {\n  color: #555;\n}\n\nhtml.step4 h1,\nhtml.step4 h2,\nhtml.step4 strong {\n  color: #333;\n}\n\nhtml.step4 a strong {\n  color: inherit;\n}\n\n/* 05 Balance */\n\nhtml.step5 #balance {\n  display: block;\n}\n\nhtml.step5 code,\nhtml.step5 pre {\n  background: #eee;\n}\n\nhtml.step5 code {\n  padding: 2px 4px;\n  vertical-align: text-bottom;\n}\n\nhtml.step5 pre {\n  padding: 1em;\n}\n\n/* 06 Primary color */\n\nhtml.step6 #primary-color {\n  display: block;\n}\n\nhtml.step6 a {\n  color: #e81c4f;\n}\n\n/* 07 Secondary colors */\n\nhtml.step7 #secondary-colors {\n  display: block;\n}\n\nhtml.step7 body {\n  background: white;\n  color: #566b78;\n}\n\nhtml.step7 code,\nhtml.step7 pre {\n  background: #f5f7f9;\n  border-bottom: 1px solid #d8dee9;\n  color: #a7adba;\n  -moz-font-smoothing: grayscale;\n  -webkit-font-smoothing: initial;\n}\n\nhtml.step7 pre {\n  border-left: 2px solid #69c;\n}\n\nhtml.step7 .selector {\n  color: #ec5f67;\n}\n\nhtml.step7 .keyword {\n  color: #ab7967;\n}\n\nhtml.step7 .unit {\n  color: #fac863;\n}\n\nhtml.step7 .attribute {\n  color: #5fb3b3;\n}\n\nhtml.step7 .number {\n  color: #f99157;\n}\n\nhtml.step7 .string {\n  color: #c594c5;\n}\n\n/* 08 Custom font */\n\nhtml.step8 #custom-font {\n  display: block;\n}\n\nhtml.step8 body {\n  font-family: \"Roboto\", \"Helvetica\", \"Arial\", sans-serif;\n  -moz-font-smoothing: grayscale;\n  -webkit-font-smoothing: antialiased;\n}\n\nhtml.step8 h1,\nhtml.step8 h2,\nhtml.step8 strong {\n  font-weight: 500;\n}\n\n/* 09 Images */\n\nhtml.step9 #images {\n  display: block;\n}\n\nhtml.step9 body {\n  margin: 0;\n  padding: 0;\n}\n\nhtml.step9 main {\n  padding: 4em 1em;\n}\n\nhtml.step9 header {\n  background-color: #263d36;\n  /*background-image: url(\"header.jpg\");*/\n  background-position: center top;\n  background-repeat: no-repeat;\n  background-size: cover;\n  line-height: 1.2;\n  max-width: none;\n  padding: 10vw 2em;\n  text-align: center;\n}\n\nhtml.step9 #logo {\n  display: inline-block;\n  height: 120px;\n  vertical-align: top;\n  width: 120px;\n}\n\nhtml.step9 header h1 {\n  color: white;\n  font-size: 2.5em;\n  font-weight: 300;\n}\n\nhtml.step9 header a {\n  border: 1px solid #e81c4f;\n  border-radius: 290486px;\n  color: white;\n  font-size: 0.6em;\n  letter-spacing: 0.2em;\n  padding: 1em 2em;\n  text-transform: uppercase;\n  text-decoration: none;\n  transition: none 200ms ease-out;\n  transition-property: color, background;\n}\n\nhtml.step9 header a:hover {\n  background: #e81c4f;\n  color: white;\n}\n\n/* 10 Share */\n\nhtml.step10 #share,\nhtml.step10 footer {\n  display: block;\n}\n\n/* Classes */\n\n.animate {\n  animation-duration: 1s;\n  animation-name: blink;\n}\n\n@keyframes blink {\n  from {\n    background-color: lightyellow;\n  }\n\n  to {\n    background-color: transparent;\n  }\n}\n\nhtml a.button {\n  border: 1px solid #d8dee9;\n  border-radius: 290486px;\n  color: #b0bfc7;\n  padding: 1em 1.5em;\n  text-align: center;\n  text-decoration: none;\n  transition: none 200ms ease-out;\n  transition-property: color, background;\n}\n\nhtml a.button strong {\n  color: #e81c4f;\n}\n\n.button:hover {\n  background: #e81c4f;\n  border-color: transparent;\n  color: rgba(255, 255, 255, 0.5);\n}\n\n.button em {\n  display: block;\n  font-size: 0.6em;\n  font-style: normal;\n  letter-spacing: 0.2em;\n  text-transform: uppercase;\n}\n\n.button strong {\n  color: #e81c4f;\n  transition: color 200ms ease-out;\n}\n\n.button:hover strong {\n  color: white !important;\n}\n\n.button.github strong {\n  color: #333;\n}\n\n.button.github:hover {\n  background: #333;\n}\n\n.button.facebook strong {\n  color: #3b5998;\n}\n\n.button.facebook:hover {\n  background: #3b5998;\n}\n\n.button.twitter strong {\n  color: #55acee;\n}\n\n.button.twitter:hover {\n  background: #55acee;\n}\n\nfooter .button {\n  font-size: 0.8em;\n  padding: 1em 2em;\n}\n\n.buttons .button {\n  display: block;\n  margin-bottom: 1em;\n}\n\n/* Responsiveness */\n\n@media (min-width: 600px) {\n  .buttons {\n    align-items: center;\n    display: flex;\n    justify-content: space-between;\n    padding: 1em 0;\n  }\n\n  .buttons .button {\n    flex-grow: 1;\n    flex-shrink: 0;\n    margin-bottom: 0;\n    margin-right: 1em\n  }\n\n  .buttons .button:last-child {\n    margin-right: 0;\n  }\n}", ""]);
+	exports.push([module.id, "/*\nTheme Name: Webpack test\nAuthor: Dan Breczinski\n*/\n\n\n/*!\n * Milligram v1.1.0\n * http://milligram.github.io\n *\n * Copyright (c) 2016 CJ Patoilo\n * Licensed under the MIT license\n*/\n\nhtml {\n  box-sizing: border-box;\n  font-size: 62.5%;\n}\n\nbody {\n  color: #606c76;\n  font-family: \"Roboto\", \"Helvetica Neue\", \"Helvetica\", \"Arial\", sans-serif;\n  font-size: 1.6em;\n  font-weight: 300;\n  letter-spacing: 0.01em;\n  line-height: 1.6;\n}\n\n*,\n*:after,\n*:before {\n  box-sizing: inherit;\n}\n\nblockquote {\n  border-left: 0.3rem solid #d1d1d1;\n  margin-left: 0;\n  margin-right: 0;\n  padding: 1rem 1.5rem;\n}\nblockquote *:last-child {\n  margin: 0;\n}\n\n.button,\nbutton,\ninput[type='button'],\ninput[type='reset'],\ninput[type='submit'] {\n  background-color: #9b4dca;\n  border: 0.1rem solid #9b4dca;\n  border-radius: 0.4rem;\n  color: #fff;\n  cursor: pointer;\n  display: inline-block;\n  font-size: 1.1rem;\n  font-weight: 700;\n  height: 3.8rem;\n  letter-spacing: 0.1rem;\n  line-height: 3.8rem;\n  padding: 0 3rem;\n  text-align: center;\n  text-decoration: none;\n  text-transform: uppercase;\n  white-space: nowrap;\n}\n.button:hover, .button:focus,\nbutton:hover,\nbutton:focus,\ninput[type='button']:hover,\ninput[type='button']:focus,\ninput[type='reset']:hover,\ninput[type='reset']:focus,\ninput[type='submit']:hover,\ninput[type='submit']:focus {\n  background-color: #606c76;\n  border-color: #606c76;\n  color: #fff;\n  outline: 0;\n}\n.button.button-disabled, .button[disabled],\nbutton.button-disabled,\nbutton[disabled],\ninput[type='button'].button-disabled,\ninput[type='button'][disabled],\ninput[type='reset'].button-disabled,\ninput[type='reset'][disabled],\ninput[type='submit'].button-disabled,\ninput[type='submit'][disabled] {\n  opacity: 0.5;\n  cursor: default;\n}\n.button.button-disabled:hover, .button.button-disabled:focus, .button[disabled]:hover, .button[disabled]:focus,\nbutton.button-disabled:hover,\nbutton.button-disabled:focus,\nbutton[disabled]:hover,\nbutton[disabled]:focus,\ninput[type='button'].button-disabled:hover,\ninput[type='button'].button-disabled:focus,\ninput[type='button'][disabled]:hover,\ninput[type='button'][disabled]:focus,\ninput[type='reset'].button-disabled:hover,\ninput[type='reset'].button-disabled:focus,\ninput[type='reset'][disabled]:hover,\ninput[type='reset'][disabled]:focus,\ninput[type='submit'].button-disabled:hover,\ninput[type='submit'].button-disabled:focus,\ninput[type='submit'][disabled]:hover,\ninput[type='submit'][disabled]:focus {\n  background-color: #9b4dca;\n  border-color: #9b4dca;\n}\n.button.button-outline,\nbutton.button-outline,\ninput[type='button'].button-outline,\ninput[type='reset'].button-outline,\ninput[type='submit'].button-outline {\n  color: #9b4dca;\n  background-color: transparent;\n}\n.button.button-outline:hover, .button.button-outline:focus,\nbutton.button-outline:hover,\nbutton.button-outline:focus,\ninput[type='button'].button-outline:hover,\ninput[type='button'].button-outline:focus,\ninput[type='reset'].button-outline:hover,\ninput[type='reset'].button-outline:focus,\ninput[type='submit'].button-outline:hover,\ninput[type='submit'].button-outline:focus {\n  color: #606c76;\n  background-color: transparent;\n  border-color: #606c76;\n}\n.button.button-outline.button-disabled:hover, .button.button-outline.button-disabled:focus, .button.button-outline[disabled]:hover, .button.button-outline[disabled]:focus,\nbutton.button-outline.button-disabled:hover,\nbutton.button-outline.button-disabled:focus,\nbutton.button-outline[disabled]:hover,\nbutton.button-outline[disabled]:focus,\ninput[type='button'].button-outline.button-disabled:hover,\ninput[type='button'].button-outline.button-disabled:focus,\ninput[type='button'].button-outline[disabled]:hover,\ninput[type='button'].button-outline[disabled]:focus,\ninput[type='reset'].button-outline.button-disabled:hover,\ninput[type='reset'].button-outline.button-disabled:focus,\ninput[type='reset'].button-outline[disabled]:hover,\ninput[type='reset'].button-outline[disabled]:focus,\ninput[type='submit'].button-outline.button-disabled:hover,\ninput[type='submit'].button-outline.button-disabled:focus,\ninput[type='submit'].button-outline[disabled]:hover,\ninput[type='submit'].button-outline[disabled]:focus {\n  color: #9b4dca;\n  border-color: inherit;\n}\n.button.button-clear,\nbutton.button-clear,\ninput[type='button'].button-clear,\ninput[type='reset'].button-clear,\ninput[type='submit'].button-clear {\n  color: #9b4dca;\n  background-color: transparent;\n  border-color: transparent;\n}\n.button.button-clear:hover, .button.button-clear:focus,\nbutton.button-clear:hover,\nbutton.button-clear:focus,\ninput[type='button'].button-clear:hover,\ninput[type='button'].button-clear:focus,\ninput[type='reset'].button-clear:hover,\ninput[type='reset'].button-clear:focus,\ninput[type='submit'].button-clear:hover,\ninput[type='submit'].button-clear:focus {\n  color: #606c76;\n  background-color: transparent;\n  border-color: transparent;\n}\n.button.button-clear.button-disabled:hover, .button.button-clear.button-disabled:focus, .button.button-clear[disabled]:hover, .button.button-clear[disabled]:focus,\nbutton.button-clear.button-disabled:hover,\nbutton.button-clear.button-disabled:focus,\nbutton.button-clear[disabled]:hover,\nbutton.button-clear[disabled]:focus,\ninput[type='button'].button-clear.button-disabled:hover,\ninput[type='button'].button-clear.button-disabled:focus,\ninput[type='button'].button-clear[disabled]:hover,\ninput[type='button'].button-clear[disabled]:focus,\ninput[type='reset'].button-clear.button-disabled:hover,\ninput[type='reset'].button-clear.button-disabled:focus,\ninput[type='reset'].button-clear[disabled]:hover,\ninput[type='reset'].button-clear[disabled]:focus,\ninput[type='submit'].button-clear.button-disabled:hover,\ninput[type='submit'].button-clear.button-disabled:focus,\ninput[type='submit'].button-clear[disabled]:hover,\ninput[type='submit'].button-clear[disabled]:focus {\n  color: #9b4dca;\n}\n\ncode {\n  background: #f4f5f6;\n  border-radius: 0.4rem;\n  font-size: 86%;\n  padding: 0.2rem 0.5rem;\n  margin: 0 0.2rem;\n  white-space: nowrap;\n}\n\npre {\n  background: #f4f5f6;\n  border-left: 0.3rem solid #9b4dca;\n  font-family: \"Menlo\", \"Consolas\", \"Bitstream Vera Sans Mono\", \"DejaVu Sans Mono\", \"Monaco\", monospace;\n}\npre > code {\n  background: transparent;\n  border-radius: 0;\n  display: block;\n  padding: 1rem 1.5rem;\n  white-space: pre;\n}\n\nhr {\n  border: 0;\n  border-top: 0.1rem solid #f4f5f6;\n  margin-bottom: 3.5rem;\n  margin-top: 3rem;\n}\n\ninput[type='email'],\ninput[type='number'],\ninput[type='password'],\ninput[type='search'],\ninput[type='tel'],\ninput[type='text'],\ninput[type='url'],\ntextarea,\nselect {\n  -webkit-appearance: none;\n     -moz-appearance: none;\n          appearance: none;\n  background-color: transparent;\n  border: 0.1rem solid #d1d1d1;\n  border-radius: 0.4rem;\n  box-shadow: none;\n  height: 3.8rem;\n  padding: 0.6rem 1rem;\n  width: 100%;\n}\ninput[type='email']:focus,\ninput[type='number']:focus,\ninput[type='password']:focus,\ninput[type='search']:focus,\ninput[type='tel']:focus,\ninput[type='text']:focus,\ninput[type='url']:focus,\ntextarea:focus,\nselect:focus {\n  border: 0.1rem solid #9b4dca;\n  outline: 0;\n}\n\nselect {\n  padding: 0.6rem 3rem 0.6rem 1rem;\n  background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+PHN2ZyAgIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgICB4bWxuczpjYz0iaHR0cDovL2NyZWF0aXZlY29tbW9ucy5vcmcvbnMjIiAgIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyIgICB4bWxuczpzdmc9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiAgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgICB4bWxuczpzb2RpcG9kaT0iaHR0cDovL3NvZGlwb2RpLnNvdXJjZWZvcmdlLm5ldC9EVEQvc29kaXBvZGktMC5kdGQiICAgeG1sbnM6aW5rc2NhcGU9Imh0dHA6Ly93d3cuaW5rc2NhcGUub3JnL25hbWVzcGFjZXMvaW5rc2NhcGUiICAgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMjkgMTQiICAgaGVpZ2h0PSIxNHB4IiAgIGlkPSJMYXllcl8xIiAgIHZlcnNpb249IjEuMSIgICB2aWV3Qm94PSIwIDAgMjkgMTQiICAgd2lkdGg9IjI5cHgiICAgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgICBpbmtzY2FwZTp2ZXJzaW9uPSIwLjQ4LjQgcjk5MzkiICAgc29kaXBvZGk6ZG9jbmFtZT0iY2FyZXQtZ3JheS5zdmciPjxtZXRhZGF0YSAgICAgaWQ9Im1ldGFkYXRhMzAzOSI+PHJkZjpSREY+PGNjOldvcmsgICAgICAgICByZGY6YWJvdXQ9IiI+PGRjOmZvcm1hdD5pbWFnZS9zdmcreG1sPC9kYzpmb3JtYXQ+PGRjOnR5cGUgICAgICAgICAgIHJkZjpyZXNvdXJjZT0iaHR0cDovL3B1cmwub3JnL2RjL2RjbWl0eXBlL1N0aWxsSW1hZ2UiIC8+PC9jYzpXb3JrPjwvcmRmOlJERj48L21ldGFkYXRhPjxkZWZzICAgICBpZD0iZGVmczMwMzciIC8+PHNvZGlwb2RpOm5hbWVkdmlldyAgICAgcGFnZWNvbG9yPSIjZmZmZmZmIiAgICAgYm9yZGVyY29sb3I9IiM2NjY2NjYiICAgICBib3JkZXJvcGFjaXR5PSIxIiAgICAgb2JqZWN0dG9sZXJhbmNlPSIxMCIgICAgIGdyaWR0b2xlcmFuY2U9IjEwIiAgICAgZ3VpZGV0b2xlcmFuY2U9IjEwIiAgICAgaW5rc2NhcGU6cGFnZW9wYWNpdHk9IjAiICAgICBpbmtzY2FwZTpwYWdlc2hhZG93PSIyIiAgICAgaW5rc2NhcGU6d2luZG93LXdpZHRoPSI5MDMiICAgICBpbmtzY2FwZTp3aW5kb3ctaGVpZ2h0PSI1OTQiICAgICBpZD0ibmFtZWR2aWV3MzAzNSIgICAgIHNob3dncmlkPSJ0cnVlIiAgICAgaW5rc2NhcGU6em9vbT0iMTIuMTM3OTMxIiAgICAgaW5rc2NhcGU6Y3g9Ii00LjExOTMxODJlLTA4IiAgICAgaW5rc2NhcGU6Y3k9IjciICAgICBpbmtzY2FwZTp3aW5kb3cteD0iNTAyIiAgICAgaW5rc2NhcGU6d2luZG93LXk9IjMwMiIgICAgIGlua3NjYXBlOndpbmRvdy1tYXhpbWl6ZWQ9IjAiICAgICBpbmtzY2FwZTpjdXJyZW50LWxheWVyPSJMYXllcl8xIj48aW5rc2NhcGU6Z3JpZCAgICAgICB0eXBlPSJ4eWdyaWQiICAgICAgIGlkPSJncmlkMzA0MSIgLz48L3NvZGlwb2RpOm5hbWVkdmlldz48cG9seWdvbiAgICAgcG9pbnRzPSIwLjE1LDAgMTQuNSwxNC4zNSAyOC44NSwwICIgICAgIGlkPSJwb2x5Z29uMzAzMyIgICAgIHRyYW5zZm9ybT0ibWF0cml4KDAuMzU0MTEzODcsMCwwLDAuNDgzMjkxMSw5LjMyNDE1NDUsMy42MjQ5OTkyKSIgICAgIHN0eWxlPSJmaWxsOiNkMWQxZDE7ZmlsbC1vcGFjaXR5OjEiIC8+PC9zdmc+) center right no-repeat;\n}\nselect:focus {\n  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+PHN2ZyAgIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgICB4bWxuczpjYz0iaHR0cDovL2NyZWF0aXZlY29tbW9ucy5vcmcvbnMjIiAgIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyIgICB4bWxuczpzdmc9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiAgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgICB4bWxuczpzb2RpcG9kaT0iaHR0cDovL3NvZGlwb2RpLnNvdXJjZWZvcmdlLm5ldC9EVEQvc29kaXBvZGktMC5kdGQiICAgeG1sbnM6aW5rc2NhcGU9Imh0dHA6Ly93d3cuaW5rc2NhcGUub3JnL25hbWVzcGFjZXMvaW5rc2NhcGUiICAgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMjkgMTQiICAgaGVpZ2h0PSIxNHB4IiAgIGlkPSJMYXllcl8xIiAgIHZlcnNpb249IjEuMSIgICB2aWV3Qm94PSIwIDAgMjkgMTQiICAgd2lkdGg9IjI5cHgiICAgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgICBpbmtzY2FwZTp2ZXJzaW9uPSIwLjQ4LjQgcjk5MzkiICAgc29kaXBvZGk6ZG9jbmFtZT0iY2FyZXQuc3ZnIj48bWV0YWRhdGEgICAgIGlkPSJtZXRhZGF0YTMwMzkiPjxyZGY6UkRGPjxjYzpXb3JrICAgICAgICAgcmRmOmFib3V0PSIiPjxkYzpmb3JtYXQ+aW1hZ2Uvc3ZnK3htbDwvZGM6Zm9ybWF0PjxkYzp0eXBlICAgICAgICAgICByZGY6cmVzb3VyY2U9Imh0dHA6Ly9wdXJsLm9yZy9kYy9kY21pdHlwZS9TdGlsbEltYWdlIiAvPjwvY2M6V29yaz48L3JkZjpSREY+PC9tZXRhZGF0YT48ZGVmcyAgICAgaWQ9ImRlZnMzMDM3IiAvPjxzb2RpcG9kaTpuYW1lZHZpZXcgICAgIHBhZ2Vjb2xvcj0iI2ZmZmZmZiIgICAgIGJvcmRlcmNvbG9yPSIjNjY2NjY2IiAgICAgYm9yZGVyb3BhY2l0eT0iMSIgICAgIG9iamVjdHRvbGVyYW5jZT0iMTAiICAgICBncmlkdG9sZXJhbmNlPSIxMCIgICAgIGd1aWRldG9sZXJhbmNlPSIxMCIgICAgIGlua3NjYXBlOnBhZ2VvcGFjaXR5PSIwIiAgICAgaW5rc2NhcGU6cGFnZXNoYWRvdz0iMiIgICAgIGlua3NjYXBlOndpbmRvdy13aWR0aD0iOTAzIiAgICAgaW5rc2NhcGU6d2luZG93LWhlaWdodD0iNTk0IiAgICAgaWQ9Im5hbWVkdmlldzMwMzUiICAgICBzaG93Z3JpZD0idHJ1ZSIgICAgIGlua3NjYXBlOnpvb209IjEyLjEzNzkzMSIgICAgIGlua3NjYXBlOmN4PSItNC4xMTkzMTgyZS0wOCIgICAgIGlua3NjYXBlOmN5PSI3IiAgICAgaW5rc2NhcGU6d2luZG93LXg9IjUwMiIgICAgIGlua3NjYXBlOndpbmRvdy15PSIzMDIiICAgICBpbmtzY2FwZTp3aW5kb3ctbWF4aW1pemVkPSIwIiAgICAgaW5rc2NhcGU6Y3VycmVudC1sYXllcj0iTGF5ZXJfMSI+PGlua3NjYXBlOmdyaWQgICAgICAgdHlwZT0ieHlncmlkIiAgICAgICBpZD0iZ3JpZDMwNDEiIC8+PC9zb2RpcG9kaTpuYW1lZHZpZXc+PHBvbHlnb24gICAgIHBvaW50cz0iMjguODUsMCAwLjE1LDAgMTQuNSwxNC4zNSAiICAgICBpZD0icG9seWdvbjMwMzMiICAgICB0cmFuc2Zvcm09Im1hdHJpeCgwLjM1NDExMzg3LDAsMCwwLjQ4MzI5MTEsOS4zMjQxNTUzLDMuNjI1KSIgICAgIHN0eWxlPSJmaWxsOiM5YjRkY2Y7ZmlsbC1vcGFjaXR5OjEiIC8+PC9zdmc+);\n}\n\ntextarea {\n  padding-bottom: 0.6rem;\n  padding-top: 0.6rem;\n  min-height: 6.5rem;\n}\n\nlabel,\nlegend {\n  font-size: 1.6rem;\n  font-weight: 700;\n  display: block;\n  margin-bottom: 0.5rem;\n}\n\nfieldset {\n  border-width: 0;\n  padding: 0;\n}\n\ninput[type='checkbox'],\ninput[type='radio'] {\n  display: inline;\n}\n\n.label-inline {\n  font-weight: normal;\n  display: inline-block;\n  margin-left: 0.5rem;\n}\n\n.container {\n  margin: 0 auto;\n  max-width: 112rem;\n  padding: 0 2rem;\n  position: relative;\n  width: 100%;\n}\n\n.row {\n  display: flex;\n  flex-direction: column;\n  padding: 0;\n  width: 100%;\n}\n.row .row-wrap {\n  flex-wrap: wrap;\n}\n.row .row-no-padding {\n  padding: 0;\n}\n.row .row-no-padding > .column {\n  padding: 0;\n}\n.row .row-top {\n  align-items: flex-start;\n}\n.row .row-bottom {\n  align-items: flex-end;\n}\n.row .row-center {\n  align-items: center;\n}\n.row .row-stretch {\n  align-items: stretch;\n}\n.row .row-baseline {\n  align-items: baseline;\n}\n.row .column {\n  display: block;\n  flex: 1;\n  margin-left: 0;\n  max-width: 100%;\n  width: 100%;\n}\n.row .column .col-top {\n  align-self: flex-start;\n}\n.row .column .col-bottom {\n  align-self: flex-end;\n}\n.row .column .col-center {\n  align-self: center;\n}\n.row .column.column-offset-10 {\n  margin-left: 10%;\n}\n.row .column.column-offset-20 {\n  margin-left: 20%;\n}\n.row .column.column-offset-25 {\n  margin-left: 25%;\n}\n.row .column.column-offset-33, .row .column.column-offset-34 {\n  margin-left: 33.3333%;\n}\n.row .column.column-offset-50 {\n  margin-left: 50%;\n}\n.row .column.column-offset-66, .row .column.column-offset-67 {\n  margin-left: 66.6666%;\n}\n.row .column.column-offset-75 {\n  margin-left: 75%;\n}\n.row .column.column-offset-80 {\n  margin-left: 80%;\n}\n.row .column.column-offset-90 {\n  margin-left: 90%;\n}\n.row .column.column-10 {\n  flex: 0 0 10%;\n  max-width: 10%;\n}\n.row .column.column-20 {\n  flex: 0 0 20%;\n  max-width: 20%;\n}\n.row .column.column-25 {\n  flex: 0 0 25%;\n  max-width: 25%;\n}\n.row .column.column-33, .row .column.column-34 {\n  flex: 0 0 33.3333%;\n  max-width: 33.3333%;\n}\n.row .column.column-40 {\n  flex: 0 0 40%;\n  max-width: 40%;\n}\n.row .column.column-50 {\n  flex: 0 0 50%;\n  max-width: 50%;\n}\n.row .column.column-60 {\n  flex: 0 0 60%;\n  max-width: 60%;\n}\n.row .column.column-66, .row .column.column-67 {\n  flex: 0 0 66.6666%;\n  max-width: 66.6666%;\n}\n.row .column.column-75 {\n  flex: 0 0 75%;\n  max-width: 75%;\n}\n.row .column.column-80 {\n  flex: 0 0 80%;\n  max-width: 80%;\n}\n.row .column.column-90 {\n  flex: 0 0 90%;\n  max-width: 90%;\n}\n\n@media (min-width: 40rem) {\n  .row {\n    flex-direction: row;\n    margin-left: -1rem;\n    width: calc(100% + 2.0rem);\n  }\n  .row .column {\n    margin-bottom: inherit;\n    padding: 0 1rem;\n  }\n}\na {\n  color: #9b4dca;\n  text-decoration: none;\n}\na:hover {\n  color: #606c76;\n}\n\ndl,\nol,\nul {\n  margin-top: 0;\n  padding-left: 0;\n}\ndl ul,\ndl ol,\nol ul,\nol ol,\nul ul,\nul ol {\n  font-size: 90%;\n  margin: 1.5rem 0 1.5rem 3rem;\n}\n\ndl {\n  list-style: none;\n}\n\nul {\n  list-style: circle inside;\n}\n\nol {\n  list-style: decimal inside;\n}\n\ndt,\ndd,\nli {\n  margin-bottom: 1rem;\n}\n\n.button,\nbutton {\n  margin-bottom: 1rem;\n}\n\ninput,\ntextarea,\nselect,\nfieldset {\n  margin-bottom: 1.5rem;\n}\n\npre,\nblockquote,\ndl,\nfigure,\ntable,\np,\nul,\nol,\nform {\n  margin-bottom: 2.5rem;\n}\n\ntable {\n  width: 100%;\n}\n\nth,\ntd {\n  border-bottom: 0.1rem solid #e1e1e1;\n  padding: 1.2rem 1.5rem;\n  text-align: left;\n}\nth:first-child,\ntd:first-child {\n  padding-left: 0;\n}\nth:last-child,\ntd:last-child {\n  padding-right: 0;\n}\n\np {\n  margin-top: 0;\n}\n\nh1,\nh2,\nh3,\nh4,\nh5,\nh6 {\n  font-weight: 300;\n  margin-bottom: 2rem;\n  margin-top: 0;\n}\n\nh1 {\n  font-size: 4rem;\n  letter-spacing: -0.1rem;\n  line-height: 1.2;\n}\n\nh2 {\n  font-size: 3.6rem;\n  letter-spacing: -0.1rem;\n  line-height: 1.25;\n}\n\nh3 {\n  font-size: 3rem;\n  letter-spacing: -0.1rem;\n  line-height: 1.3;\n}\n\nh4 {\n  font-size: 2.4rem;\n  letter-spacing: -0.08rem;\n  line-height: 1.35;\n}\n\nh5 {\n  font-size: 1.8rem;\n  letter-spacing: -0.05rem;\n  line-height: 1.5;\n}\n\nh6 {\n  font-size: 1.6rem;\n  letter-spacing: 0;\n  line-height: 1.4;\n}\n\n@media (min-width: 40rem) {\n  h1 {\n    font-size: 5rem;\n  }\n\n  h2 {\n    font-size: 4.2rem;\n  }\n\n  h3 {\n    font-size: 3.6rem;\n  }\n\n  h4 {\n    font-size: 3rem;\n  }\n\n  h5 {\n    font-size: 2.4rem;\n  }\n\n  h6 {\n    font-size: 1.5rem;\n  }\n}\n.float-right {\n  float: right;\n}\n\n.float-left {\n  float: left;\n}\n\n.clearfix {\n  *zoom: 1;\n}\n.clearfix:after, .clearfix:before {\n  content: \"\";\n  display: table;\n}\n.clearfix:after {\n  clear: both;\n}\n", ""]);
 
 	// exports
 
@@ -405,25 +405,23 @@
 	var ReactDOM = __webpack_require__(38);
 	var Root = __webpack_require__(177);
 
-	var data = __webpack_require__(181);
-	var options = { data: data, siteUrl: breczinski.siteUrl };
-	var controllers = new (__webpack_require__(182))(options);
+	var data = __webpack_require__(187);
+	var controllers = new (__webpack_require__(188))({ data: data, siteUrl: breczinski.siteUrl });
+	var router = new (__webpack_require__(195))({ controllers: controllers, data: data });
 
 	var BaseComponent = React.createClass({
 		displayName: 'BaseComponent',
 
-		getInitialState: function getInitialState() {
-			return { data: data.get() };
-		},
 		componentDidMount: function componentDidMount() {
-			var self = this;
-			data.subscribe(function (newData) {
-				self.setState({ data: newData });
-			});
+			data.subscribe(this.forceUpdate.bind(this));
+			controllers.url.setParamsFromUrl();
+			// controllers.menu.loadMain();
+			router.navigate();
 		},
 		render: function render() {
 			return React.createElement(Root, {
-				data: this.state.data,
+				router: router,
+				data: data.getRoot(),
 				controllers: controllers });
 		}
 	});
@@ -21470,32 +21468,24 @@
 
 	var _ = __webpack_require__(178);
 	var React = __webpack_require__(6);
-	var Menu = __webpack_require__(188);
-	var Post = __webpack_require__(179);
+	var Menu = __webpack_require__(179);
+	var Posts = __webpack_require__(181);
+	var Url = __webpack_require__(186);
 	var Immutable = __webpack_require__(180);
 
 	module.exports = React.createClass({
 		displayName: 'exports',
 
-		componentDidMount: function componentDidMount() {
-			this.props.controllers.post.load();
+		componentWillMount: function componentWillMount() {
 			this.props.controllers.menu.loadMain();
 		},
 		render: function render() {
-			// main menu
-			// console.log(this.props.data.get('mainMenu'))
-			var postElements = this.props.data.get('posts').map(function (p) {
-				return React.createElement(Post, { key: p.get('id'), post: p });
-			});
-			var menu = null;
-
 			return React.createElement(
 				'div',
 				null,
-				this.props.data.get('mainMenu').size ? React.createElement(Menu, { menu: this.props.data.get('mainMenu') }) : null,
-				this.props.data.get('posts').map(function (p) {
-					return React.createElement(Post, { key: p.get('id'), post: p });
-				})
+				React.createElement(Url, { urlState: this.props.data.get('urlState') }),
+				React.createElement(Menu, { menu: this.props.data.get('mainMenu') }),
+				React.createElement(Posts, { posts: this.props.data.get('posts') })
 			);
 		}
 	});
@@ -23062,20 +23052,21 @@
 
 	var Immutable = __webpack_require__(180);
 	var React = __webpack_require__(6);
-	var Post = __webpack_require__(179);
 
 	module.exports = React.createClass({
 		displayName: 'exports',
 
 		render: function render() {
-			var title = this.props.post.getIn(['title', 'rendered']);;
-			var content = this.props.post.getIn(['content', 'rendered']);
+			if (!this.props.menu.size) {
+				return null;
+			}
+
+			// console.log('menu props', this.props)
 
 			return React.createElement(
 				'div',
 				null,
-				React.createElement('div', { dangerouslySetInnerHTML: { __html: title } }),
-				React.createElement('div', { dangerouslySetInnerHTML: { __html: content } })
+				'Menu'
 			);
 		}
 	});
@@ -28068,45 +28059,204 @@
 /* 181 */
 /***/ function(module, exports, __webpack_require__) {
 
+	'use strict';
+
+	var BaseComponent = __webpack_require__(182);
+	var Post = __webpack_require__(185);
+	var React = __webpack_require__(6);
+
+	module.exports = BaseComponent.createClass({
+		render: function render() {
+			if (!this.props.posts.size) {
+				return null;
+			}
+			return React.createElement(
+				'div',
+				null,
+				this.props.posts.map(function (post) {
+					return React.createElement(Post, { key: post.get('id'), post: post });
+				})
+			);
+		}
+	});
+
+/***/ },
+/* 182 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(6);
+	var shallowCompare = __webpack_require__(183);
+
+	module.exports = {
+		createClass: function(component){
+			if( !component.shouldComponentUpdate ){
+				// if using strictly immuatable state, will prevent unecessary re-renders
+				component.shouldComponentUpdate = function(nextProps, nextState){
+					return shallowCompare(this, nextProps, nextState);
+				}
+			}
+			if( !component.render ){
+				component.render = function(){ return null; }
+			}
+			return React.createClass(component);
+		}
+	};
+
+/***/ },
+/* 183 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(184);
+
+/***/ },
+/* 184 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	* @providesModule shallowCompare
+	*/
+
+	'use strict';
+
+	var shallowEqual = __webpack_require__(138);
+
+	/**
+	 * Does a shallow comparison for props and state.
+	 * See ReactComponentWithPureRenderMixin
+	 * See also https://facebook.github.io/react/docs/shallow-compare.html
+	 */
+	function shallowCompare(instance, nextProps, nextState) {
+	  return !shallowEqual(instance.props, nextProps) || !shallowEqual(instance.state, nextState);
+	}
+
+	module.exports = shallowCompare;
+
+/***/ },
+/* 185 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var BaseComponent = __webpack_require__(182);
+	var React = __webpack_require__(6);
+
+	module.exports = BaseComponent.createClass({
+		render: function render() {
+			var title = this.props.post.getIn(['title', 'rendered']);;
+			var content = this.props.post.getIn(['content', 'rendered']);
+
+			return React.createElement(
+				'div',
+				null,
+				React.createElement('div', { dangerouslySetInnerHTML: { __html: title } }),
+				React.createElement('div', { dangerouslySetInnerHTML: { __html: content } })
+			);
+		}
+	});
+
+/***/ },
+/* 186 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var BaseComponent = __webpack_require__(182);
+	var React = __webpack_require__(6);
+
+	module.exports = BaseComponent.createClass({
+		updateUrl: function updateUrl() {
+			try {
+				var url = this._getUrl() + this._getQueryString(this.props.urlState.toJS());
+				window.history.pushState(null, null, url);
+			} catch (e) {
+				console.log(console.log(e));
+			}
+		},
+		_getQueryString: function _getQueryString(params) {
+			var queryString = '';
+			for (var key in params) {
+				if (queryString !== '') {
+					queryString += '&';
+				} else {
+					queryString += '?';
+				}
+				queryString += key + "=" + encodeURIComponent(params[key]);
+			}
+			return queryString;
+		},
+		_getUrl: function _getUrl() {
+			return [location.protocol, '//', location.host, location.pathname].join('');
+		},
+		render: function render() {
+			if (!this.props.urlState) {
+				return null;
+			}
+			this.updateUrl();
+			return null;
+		}
+	});
+
+/***/ },
+/* 187 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var _ = __webpack_require__(178);
 	var Immutable = __webpack_require__(180);
 
 	var callbacks = [];
 	var data = Immutable.fromJS({
 		posts: [],
-		mainMenu: {}
+		mainMenu: {},
+		urlState: null
 	});
 
 	var mod = {
 		set: function(key, value){
-			if( _.isArray(value) || _.isObject(value) ){
-				data = data.set(key, Immutable.fromJS(value));
+			if( _.isArray(key) ){
+				data = data.setIn(key, mod._coerceValue(value));
 			} else {
-				data = data.set(key, value);
+				data = data.set(key, mod._coerceValue(value));
 			}
 			mod._notifyListeners();
 		},
-		setIn: function(keys, value){
-			mod._notifyListeners();	
+		_coerceValue: function(value){
+			if( _.isArray(value) || _.isObject(value) ){
+				return Immutable.fromJS(value);
+			}
+			return value;
 		},
-		get: function(){ return data; },
+		getRoot: function(){ return data; },
+		get: function(key){
+			if( _.isArray(key) ){
+				return data.getIn(key);
+			} else {
+				return data.get(key);
+			}
+		},
 		subscribe: function(callback){ callbacks.push(callback); },
-		_notifyListeners: function(){ _.each(callbacks, function(c){ c(data); }); }
+		_notifyListeners: function(){ _.each(callbacks, function(c){ c(); }); }
 	}
 
 	module.exports = mod;
 
 /***/ },
-/* 182 */
+/* 188 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _ = __webpack_require__(178);
-	// var superagent = require('superagent-cache')();
-	var superagent = __webpack_require__(183);
+	var superagent = __webpack_require__(189);
 
 	var CONTROLLERS = {
-	    post: __webpack_require__(186),
-	    menu: __webpack_require__(187)
+	    menu: __webpack_require__(192),
+	    post: __webpack_require__(193),
+	    url: __webpack_require__(194)
 	}
 
 	module.exports = function(options){
@@ -28121,15 +28271,15 @@
 	}
 
 /***/ },
-/* 183 */
+/* 189 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Module dependencies.
 	 */
 
-	var Emitter = __webpack_require__(184);
-	var reduce = __webpack_require__(185);
+	var Emitter = __webpack_require__(190);
+	var reduce = __webpack_require__(191);
 
 	/**
 	 * Root reference for iframes.
@@ -29318,7 +29468,7 @@
 
 
 /***/ },
-/* 184 */
+/* 190 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -29487,7 +29637,7 @@
 
 
 /***/ },
-/* 185 */
+/* 191 */
 /***/ function(module, exports) {
 
 	
@@ -29516,33 +29666,7 @@
 	};
 
 /***/ },
-/* 186 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _ = __webpack_require__(178);
-	module.exports = function(options){
-
-	    var controllers = options.controllers;
-	    var data = options.data;
-	    var superagent = options.superagent;
-	    var siteUrl = options.siteUrl;
-
-	    this.load = function(){
-	    	var uri = siteUrl + '/wp-json/wp/v2/posts';
-			superagent
-		  		.get(uri)
-		  		.end(function (err, response){
-		  			if( err ){ return console.log(err); }
-		  			if( response.body && _.isArray(response.body) ){
-		  				data.set('posts', response.body);
-		  			}	  			
-		  		}
-			);
-	    }
-	}
-
-/***/ },
-/* 187 */
+/* 192 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _ = __webpack_require__(178);
@@ -29583,28 +29707,90 @@
 	}
 
 /***/ },
-/* 188 */
+/* 193 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	var _ = __webpack_require__(178);
+	module.exports = function(options){
 
-	var Immutable = __webpack_require__(180);
-	var React = __webpack_require__(6);
+	    var controllers = options.controllers;
+	    var data = options.data;
+	    var superagent = options.superagent;
+	    var siteUrl = options.siteUrl;
 
-	module.exports = React.createClass({
-		displayName: 'exports',
-
-		render: function render() {
-
-			console.log('menu props', this.props);
-
-			return React.createElement(
-				'div',
-				null,
-				'Menu'
+	    this.load = function(){
+	    	var uri = siteUrl + '/wp-json/wp/v2/posts';
+			superagent
+		  		.get(uri)
+		  		.end(function (err, response){
+		  			if( err ){ return console.log(err); }
+		  			if( response.body && _.isArray(response.body) ){
+		  				data.set('posts', response.body);
+		  			}	  			
+		  		}
 			);
+	    }
+	}
+
+/***/ },
+/* 194 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(178);
+	module.exports = function(options){
+
+	    var controllers = options.controllers;
+	    var data = options.data;
+	    var superagent = options.superagent;
+
+	    var DEFAULT_STATE = {view: 'home'};
+
+	    this.setParamsFromUrl = function(){
+	    	data.set('urlState', this.parseParams());
+	    }
+
+	    this.parseParams = function(){
+		    var match;
+		    var pl     = /\+/g;  // Regex for replacing addition symbol with a space
+		    var search = /([^&=]+)=?([^&]*)/g;
+		    var decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); };
+		    var query  = window.location.search.substring(1);
+		    var urlState = _.clone(DEFAULT_STATE);
+		    while(match = search.exec(query)){
+		       urlState[decode(match[1])] = decode(match[2]);
+		    }
+		    return urlState;
+	    }
+	}
+
+/***/ },
+/* 195 */
+/***/ function(module, exports) {
+
+	module.exports = function(options){
+
+		var controllers = options.controllers;
+		var data = options.data;
+
+		var navigate = this.navigate = function(params = null){
+			// update params if not initial load
+			if( params ){
+				data.set('urlState', params);
+			}
+			var urlState = data.get('urlState').toJS();
+			switch(urlState.view){
+				case 'home':
+					controllers.post.load();
+					break;
+				default:
+					this.navigate({view: 'home'});
+			}
 		}
-	});
+	    window.addEventListener("popstate", function(){
+	    	controllers.url.setParamsFromUrl();
+	    	navigate();
+	    });
+	}
 
 /***/ }
 /******/ ]);
