@@ -19,6 +19,9 @@ module.exports = function(options){
 	    while(match = search.exec(query)){
 	       urlState[decode(match[1])] = decode(match[2]);
 	    }
+	    if( urlState.page ){
+	    	urlState.page = Number(urlState.page);
+	    }
 	    return urlState;
     }
 }

@@ -10,6 +10,11 @@ module.exports = function(options){
     this.load = function(options){
     	data.startTransition();
     	var query = { rest_route: '/wp/v2/posts' };
+    	var page = 1;
+    	if( options.page ){ page = options.page; }
+    	query.page = page;
+    	data.set('currentPage', page);
+    	query.per_page = data.perPage;
     	if( options.cat ){ query.categories = [options.cat]; }
     	if( options.tag ){
     		query.tags = [options.tag];

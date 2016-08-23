@@ -5,6 +5,8 @@ var Immutable = require('immutable');
 var callbacks = [];
 
 var initialState = {
+	currentPage: null,
+	perPage: 10,
 	page: {},
 	post: {},
 	posts: [],

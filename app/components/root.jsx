@@ -26,9 +26,18 @@ module.exports = BaseComponent.createClass({
 						menu={this.props.data.get('mainMenu')} />
 				</div>
 				<div className="column column-75">
-					<Post post={this.props.data.get('page')} />
-					<Post post={this.props.data.get('post')} />
-					<Posts posts={this.props.data.get('posts')} />
+					<Post
+						isPage={true}
+						router={this.props.router}
+						post={this.props.data.get('page')} />
+					<Post
+						router={this.props.router}
+						post={this.props.data.get('post')} />
+					<Posts
+						router={this.props.router}
+						perPage={this.props.data.get('perPage')}
+						currentPage={this.props.data.get('currentPage')}
+						posts={this.props.data.get('posts')} />
 				</div>
 			</div>
 		</div>;

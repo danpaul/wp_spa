@@ -21468,10 +21468,10 @@
 
 	var _ = __webpack_require__(178);
 	var BaseComponent = __webpack_require__(179);
-	var Header = __webpack_require__(200);
-	var Menu = __webpack_require__(182);
-	var Post = __webpack_require__(184);
-	var Posts = __webpack_require__(185);
+	var Header = __webpack_require__(182);
+	var Menu = __webpack_require__(183);
+	var Post = __webpack_require__(185);
+	var Posts = __webpack_require__(186);
 	var React = __webpack_require__(6);
 	var Url = __webpack_require__(187);
 	var Immutable = __webpack_require__(188);
@@ -21502,9 +21502,18 @@
 					React.createElement(
 						'div',
 						{ className: 'column column-75' },
-						React.createElement(Post, { post: this.props.data.get('page') }),
-						React.createElement(Post, { post: this.props.data.get('post') }),
-						React.createElement(Posts, { posts: this.props.data.get('posts') })
+						React.createElement(Post, {
+							isPage: true,
+							router: this.props.router,
+							post: this.props.data.get('page') }),
+						React.createElement(Post, {
+							router: this.props.router,
+							post: this.props.data.get('post') }),
+						React.createElement(Posts, {
+							router: this.props.router,
+							perPage: this.props.data.get('perPage'),
+							currentPage: this.props.data.get('currentPage'),
+							posts: this.props.data.get('posts') })
 					)
 				)
 			);
@@ -23130,7 +23139,38 @@
 	'use strict';
 
 	var BaseComponent = __webpack_require__(179);
-	var MenuItem = __webpack_require__(183);
+	var React = __webpack_require__(6);
+
+	module.exports = BaseComponent.createClass({
+		goHome: function goHome() {
+			this.props.router.navigate({ view: 'home' });
+		},
+		render: function render() {
+			return React.createElement(
+				'div',
+				{ style: { marginBottom: '2rem' } },
+				React.createElement(
+					'h1',
+					{ onClick: this.goHome, style: { marginBottom: '0' } },
+					this.props.site.get('title')
+				),
+				React.createElement(
+					'small',
+					null,
+					this.props.site.get('description')
+				)
+			);
+		}
+	});
+
+/***/ },
+/* 183 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var BaseComponent = __webpack_require__(179);
+	var MenuItem = __webpack_require__(184);
 	var React = __webpack_require__(6);
 
 	module.exports = BaseComponent.createClass({
@@ -23153,7 +23193,7 @@
 	});
 
 /***/ },
-/* 183 */
+/* 184 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23222,7 +23262,7 @@
 	module.exports = MenuItem;
 
 /***/ },
-/* 184 */
+/* 185 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23231,6 +23271,12 @@
 	var React = __webpack_require__(6);
 
 	module.exports = BaseComponent.createClass({
+		gotoPost: function gotoPost() {
+			if (this.props.isPage) {
+				return;
+			}
+			this.props.router.navigate({ p: this.props.post.get('id') });
+		},
 		render: function render() {
 			if (!this.props.post.size) {
 				return null;
@@ -23242,7 +23288,7 @@
 				{ style: { paddingBottom: '3rem' } },
 				React.createElement(
 					'h3',
-					null,
+					{ onClick: this.gotoPost },
 					React.createElement('span', { dangerouslySetInnerHTML: { __html: title } })
 				),
 				React.createElement('div', { dangerouslySetInnerHTML: { __html: content } })
@@ -23251,32 +23297,59 @@
 	});
 
 /***/ },
-/* 185 */
+/* 186 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var BaseComponent = __webpack_require__(179);
-	var Post = __webpack_require__(184);
+	var Post = __webpack_require__(185);
 	var React = __webpack_require__(6);
 
 	module.exports = BaseComponent.createClass({
+		goBack: function goBack() {
+			this.props.router.goBack();
+		},
+		goForward: function goForward() {
+			this.props.router.goForward();
+		},
 		render: function render() {
+			var self = this;
 			if (!this.props.posts.size) {
 				return null;
+			}
+			var previousButton = null;
+			if (this.props.currentPage && this.props.currentPage !== 1) {
+				previousButton = React.createElement(
+					'a',
+					{ onClick: this.goBack, className: 'button float-left' },
+					'Previous'
+				);
+			}
+			var nextButton = null;
+			if (this.props.currentPage && this.props.perPage === this.props.posts.size) {
+				nextButton = React.createElement(
+					'a',
+					{ onClick: this.goForward, className: 'button float-right' },
+					'Next'
+				);
 			}
 			return React.createElement(
 				'div',
 				null,
 				this.props.posts.map(function (post) {
-					return React.createElement(Post, { key: post.get('id'), post: post });
-				})
+					return React.createElement(Post, {
+						key: post.get('id'),
+						post: post,
+						router: self.props.router });
+				}),
+				previousButton,
+				nextButton
 			);
 		}
 	});
 
 /***/ },
-/* 186 */,
 /* 187 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -28313,6 +28386,8 @@
 	var callbacks = [];
 
 	var initialState = {
+		currentPage: null,
+		perPage: 10,
 		page: {},
 		post: {},
 		posts: [],
@@ -29888,6 +29963,11 @@
 	    this.load = function(options){
 	    	data.startTransition();
 	    	var query = { rest_route: '/wp/v2/posts' };
+	    	var page = 1;
+	    	if( options.page ){ page = options.page; }
+	    	query.page = page;
+	    	data.set('currentPage', page);
+	    	query.per_page = data.perPage;
 	    	if( options.cat ){ query.categories = [options.cat]; }
 	    	if( options.tag ){
 	    		query.tags = [options.tag];
@@ -29947,6 +30027,9 @@
 		    while(match = search.exec(query)){
 		       urlState[decode(match[1])] = decode(match[2]);
 		    }
+		    if( urlState.page ){
+		    	urlState.page = Number(urlState.page);
+		    }
 		    return urlState;
 	    }
 	}
@@ -29962,19 +30045,38 @@
 		var navigate = this.navigate = function(params = null){
 			if( params ){ data.set('urlState', params); }
 			var urlState = data.get('urlState').toJS();
+			var page = urlState.page ? urlState.page : null;
 			if( urlState.cat ){
-				return controllers.post.load({cat: urlState.cat});
+				return controllers.post.load({cat: urlState.cat, page: page});
 			} else if( urlState.p ) {
 				return controllers.post.loadPost({p: urlState.p});
 			} else if( urlState.page_id ) {
 				return controllers.page.load({page: urlState.page_id});
 			} else if( urlState.tag ) {
-				return controllers.post.load({tag: urlState.tag});
+				return controllers.post.load({tag: urlState.tag, page: page});
 			} else if( urlState.view === 'home' ){
-				return controllers.post.load({categoryId: urlState.cat});
+				return controllers.post.load({categoryId: urlState.cat, page: page});
 			} else {
 				return this.navigate({view: 'home'});
 			}
+		}
+
+		this.goBack = function(){
+			var currentPage = data.get('currentPage');
+			var nextPage = (currentPage && currentPage > 1) ? (currentPage - 1) : 1;
+			this.goToPage(nextPage);
+		}
+
+		this.goForward = function(){
+			var currentPage = data.get('currentPage');
+			var nextPage = currentPage ? (currentPage + 1) : 1;
+			this.goToPage(nextPage);
+		}
+
+		this.goToPage = function(page){
+			data.set('currentPage', page);
+			data.set(['urlState', 'page'], page);
+			navigate();
 		}
 
 	    window.addEventListener("popstate", function(){
@@ -29982,37 +30084,6 @@
 	    	navigate();
 	    });
 	}
-
-/***/ },
-/* 200 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var BaseComponent = __webpack_require__(179);
-	var React = __webpack_require__(6);
-
-	module.exports = BaseComponent.createClass({
-		goHome: function goHome() {
-			this.props.router.navigate({ view: 'home' });
-		},
-		render: function render() {
-			return React.createElement(
-				'div',
-				{ style: { marginBottom: '2rem' } },
-				React.createElement(
-					'h1',
-					{ onClick: this.goHome, style: { marginBottom: '0' } },
-					this.props.site.get('title')
-				),
-				React.createElement(
-					'small',
-					null,
-					this.props.site.get('description')
-				)
-			);
-		}
-	});
 
 /***/ }
 /******/ ]);
