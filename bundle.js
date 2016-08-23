@@ -405,9 +405,10 @@
 	var ReactDOM = __webpack_require__(38);
 	var Root = __webpack_require__(177);
 
-	var data = __webpack_require__(188);
-	var controllers = new (__webpack_require__(189))({ data: data, siteUrl: breczinski.siteUrl });
-	var router = new (__webpack_require__(196))({ controllers: controllers, data: data });
+	var data = __webpack_require__(189);
+	data.set('site', wpData);
+	var controllers = new (__webpack_require__(191))({ data: data, siteUrl: wpData.siteUrl });
+	var router = new (__webpack_require__(199))({ controllers: controllers, data: data });
 
 	var BaseComponent = React.createClass({
 		displayName: 'BaseComponent',
@@ -425,7 +426,7 @@
 		}
 	});
 
-	ReactDOM.render(React.createElement(BaseComponent, null), document.getElementById('content'));
+	ReactDOM.render(React.createElement(BaseComponent, null), document.getElementById('app-container'));
 
 /***/ },
 /* 6 */
@@ -21467,11 +21468,13 @@
 
 	var _ = __webpack_require__(178);
 	var BaseComponent = __webpack_require__(179);
-	var React = __webpack_require__(6);
+	var Header = __webpack_require__(200);
 	var Menu = __webpack_require__(182);
-	var Posts = __webpack_require__(184);
-	var Url = __webpack_require__(186);
-	var Immutable = __webpack_require__(187);
+	var Post = __webpack_require__(184);
+	var Posts = __webpack_require__(185);
+	var React = __webpack_require__(6);
+	var Url = __webpack_require__(187);
+	var Immutable = __webpack_require__(188);
 
 	module.exports = BaseComponent.createClass({
 		componentWillMount: function componentWillMount() {
@@ -21480,10 +21483,30 @@
 		render: function render() {
 			return React.createElement(
 				'div',
-				null,
-				React.createElement(Url, { urlState: this.props.data.get('urlState') }),
-				React.createElement(Menu, { menu: this.props.data.get('mainMenu') }),
-				React.createElement(Posts, { posts: this.props.data.get('posts') })
+				{ className: 'container' },
+				React.createElement(
+					'div',
+					{ className: 'row' },
+					React.createElement(
+						'div',
+						{ className: 'column column-25' },
+						React.createElement(Url, { urlState: this.props.data.get('urlState') }),
+						React.createElement(Header, {
+							router: this.props.router,
+							site: this.props.data.get('site')
+						}),
+						React.createElement(Menu, {
+							router: this.props.router,
+							menu: this.props.data.get('mainMenu') })
+					),
+					React.createElement(
+						'div',
+						{ className: 'column column-75' },
+						React.createElement(Post, { post: this.props.data.get('page') }),
+						React.createElement(Post, { post: this.props.data.get('post') }),
+						React.createElement(Posts, { posts: this.props.data.get('posts') })
+					)
+				)
 			);
 		}
 	});
@@ -23112,14 +23135,18 @@
 
 	module.exports = BaseComponent.createClass({
 		render: function render() {
+			var self = this;
 			if (!this.props.menu.size) {
 				return null;
 			}
 			return React.createElement(
-				'ul',
+				'div',
 				null,
 				this.props.menu.get('items').map(function (menuItem) {
-					return React.createElement(MenuItem, { key: menuItem.get('id'), menuItem: menuItem });
+					return React.createElement(MenuItem, {
+						key: menuItem.get('id'),
+						menuItem: menuItem,
+						router: self.props.router });
 				})
 			);
 		}
@@ -23131,45 +23158,62 @@
 
 	'use strict';
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 	var BaseComponent = __webpack_require__(179);
 	var React = __webpack_require__(6);
 
 	var MenuItem = BaseComponent.createClass({
 		handleClick: function handleClick() {
 			var l = this.props.menuItem.get('object');
+			var id = this.props.menuItem.get('object_id');
 			switch (l) {
 				case 'category':
-					console.log('in category');
+					this.props.router.navigate({ cat: id });
 					break;
 				case 'page':
-					console.log('in page');
+					this.props.router.navigate({ page_id: id });
 					break;
 				case 'post':
-					console.log('in post');
+					this.props.router.navigate({ p: id });
+					break;
+				case 'post_tag':
+					this.props.router.navigate({ tag: id });
 					break;
 				default:
 					console.log(new Error('Unknown link type'), l);
 			}
 		},
 		render: function render() {
+			var self = this;
 			var children = null;
 			if (this.props.menuItem.get('children')) {
 				children = React.createElement(
-					'ul',
+					'div',
 					null,
 					this.props.menuItem.get('children').map(function (menuItem) {
-						return React.createElement(MenuItem, { key: menuItem.get('id'), menuItem: menuItem });
+						return React.createElement(MenuItem, _extends({ key: menuItem.get('id') }, self.props, { menuItem: menuItem }));
 					})
 				);
 			}
-			return React.createElement(
-				'li',
-				null,
-				React.createElement(
+			var style = { marginBottom: '0.5rem', display: 'block' };
+			if (this.props.menuItem.get('object') === 'custom') {
+				var link = React.createElement(
 					'a',
-					{ onClick: this.handleClick },
+					{ style: style, href: this.props.menuItem.get('url'), target: '_blank' },
 					this.props.menuItem.get('title')
-				),
+				);
+			} else {
+				var link = React.createElement(
+					'a',
+					{ style: style, onClick: this.handleClick },
+					this.props.menuItem.get('title')
+				);
+			}
+			return React.createElement(
+				'div',
+				null,
+				link,
 				children
 			);
 		}
@@ -23184,7 +23228,36 @@
 	'use strict';
 
 	var BaseComponent = __webpack_require__(179);
-	var Post = __webpack_require__(185);
+	var React = __webpack_require__(6);
+
+	module.exports = BaseComponent.createClass({
+		render: function render() {
+			if (!this.props.post.size) {
+				return null;
+			}
+			var title = this.props.post.getIn(['title', 'rendered']);;
+			var content = this.props.post.getIn(['content', 'rendered']);
+			return React.createElement(
+				'div',
+				{ style: { paddingBottom: '3rem' } },
+				React.createElement(
+					'h3',
+					null,
+					React.createElement('span', { dangerouslySetInnerHTML: { __html: title } })
+				),
+				React.createElement('div', { dangerouslySetInnerHTML: { __html: content } })
+			);
+		}
+	});
+
+/***/ },
+/* 185 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var BaseComponent = __webpack_require__(179);
+	var Post = __webpack_require__(184);
 	var React = __webpack_require__(6);
 
 	module.exports = BaseComponent.createClass({
@@ -23203,30 +23276,8 @@
 	});
 
 /***/ },
-/* 185 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var BaseComponent = __webpack_require__(179);
-	var React = __webpack_require__(6);
-
-	module.exports = BaseComponent.createClass({
-		render: function render() {
-			var title = this.props.post.getIn(['title', 'rendered']);;
-			var content = this.props.post.getIn(['content', 'rendered']);
-
-			return React.createElement(
-				'div',
-				null,
-				React.createElement('div', { dangerouslySetInnerHTML: { __html: title } }),
-				React.createElement('div', { dangerouslySetInnerHTML: { __html: content } })
-			);
-		}
-	});
-
-/***/ },
-/* 186 */
+/* 186 */,
+/* 187 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23268,7 +23319,7 @@
 	});
 
 /***/ },
-/* 187 */
+/* 188 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -28252,18 +28303,32 @@
 	}));
 
 /***/ },
-/* 188 */
+/* 189 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _ = __webpack_require__(178);
-	var Immutable = __webpack_require__(187);
+	var config = __webpack_require__(190);
+	var Immutable = __webpack_require__(188);
 
 	var callbacks = [];
-	var data = Immutable.fromJS({
+
+	var initialState = {
+		page: {},
+		post: {},
 		posts: [],
 		mainMenu: {},
+		loading: true,
+		site: {},
 		urlState: null
-	});
+	};
+	// data that should be cleared when view changes
+	var viewData = ['page', 'post', 'posts'];
+	var data = Immutable.fromJS(initialState);
+
+	var history = null;
+	if( config.recordHistory ){
+		history = Immutable.List().push(data);
+	}
 
 	var mod = {
 		set: function(key, value){
@@ -28272,6 +28337,7 @@
 			} else {
 				data = data.set(key, mod._coerceValue(value));
 			}
+			if( history ){ history = history.push(data); }
 			mod._notifyListeners();
 		},
 		_coerceValue: function(value){
@@ -28289,22 +28355,46 @@
 			}
 		},
 		subscribe: function(callback){ callbacks.push(callback); },
-		_notifyListeners: function(){ _.each(callbacks, function(c){ c(); }); }
+		_notifyListeners: function(){ _.each(callbacks, function(c){ c(); }); },
+		startTransition: function(){
+			_.each(viewData, function(vd){
+				if( _.isObject(initialState[vd]) ){
+					mod.set(vd, {});
+				} else if( _.isArray(initialState[vd]) ) {
+					mod.set(vd, []);
+				}
+			});
+			mod.set('loading', true);
+		},
+		endTransition: function(){
+			mod.set('loading', false);
+		}
 	}
 
 	module.exports = mod;
 
 /***/ },
-/* 189 */
+/* 190 */
+/***/ function(module, exports) {
+
+	var config = {};
+
+	config.recordHistory = true;
+
+	module.exports = config;
+
+/***/ },
+/* 191 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _ = __webpack_require__(178);
-	var superagent = __webpack_require__(190);
+	var superagent = __webpack_require__(192);
 
 	var CONTROLLERS = {
-	    menu: __webpack_require__(193),
-	    post: __webpack_require__(194),
-	    url: __webpack_require__(195)
+	    menu: __webpack_require__(195),
+	    page: __webpack_require__(196),
+	    post: __webpack_require__(197),
+	    url: __webpack_require__(198)
 	}
 
 	module.exports = function(options){
@@ -28319,15 +28409,15 @@
 	}
 
 /***/ },
-/* 190 */
+/* 192 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Module dependencies.
 	 */
 
-	var Emitter = __webpack_require__(191);
-	var reduce = __webpack_require__(192);
+	var Emitter = __webpack_require__(193);
+	var reduce = __webpack_require__(194);
 
 	/**
 	 * Root reference for iframes.
@@ -29516,7 +29606,7 @@
 
 
 /***/ },
-/* 191 */
+/* 193 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -29685,7 +29775,7 @@
 
 
 /***/ },
-/* 192 */
+/* 194 */
 /***/ function(module, exports) {
 
 	
@@ -29714,7 +29804,7 @@
 	};
 
 /***/ },
-/* 193 */
+/* 195 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _ = __webpack_require__(178);
@@ -29756,7 +29846,34 @@
 	}
 
 /***/ },
-/* 194 */
+/* 196 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(178);
+	module.exports = function(options){
+	    var controllers = options.controllers;
+	    var data = options.data;
+	    var superagent = options.superagent;
+	    var siteUrl = options.siteUrl;
+	    this.load = function(options){
+	    	data.startTransition();
+	    	var route = '/wp/v2/pages/' + options.page;
+			superagent
+		  		.get(siteUrl)
+		  		.query({rest_route: route})
+		  		.end(function (err, response){
+		  			if( err ){ return console.log(err); }
+		  			if( response.body && _.isObject(response.body) ){
+		  				data.set('page', response.body);
+		  			}
+		  			data.endTransition();
+		  		}
+			);
+	    }
+	}
+
+/***/ },
+/* 197 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _ = __webpack_require__(178);
@@ -29767,10 +29884,13 @@
 	    var superagent = options.superagent;
 	    var siteUrl = options.siteUrl;
 
+	    // loads multiple posts
 	    this.load = function(options){
+	    	data.startTransition();
 	    	var query = { rest_route: '/wp/v2/posts' };
-	    	if( options.category ){
-	    		query.categories = [options.category];
+	    	if( options.cat ){ query.categories = [options.cat]; }
+	    	if( options.tag ){
+	    		query.tags = [options.tag];
 	    	}
 			superagent
 		  		.get(siteUrl)
@@ -29780,13 +29900,30 @@
 		  			if( response.body && _.isArray(response.body) ){
 		  				data.set('posts', response.body);
 		  			}
+		  			data.endTransition();
 		  		}
 			);
+	    }
+
+	    // loads individual post
+	    this.loadPost = function(options){
+	    	data.startTransition();
+			var route = '/wp/v2/posts/' + options.p;
+			superagent
+		  		.get(siteUrl)
+		  		.query({rest_route: route })
+		  		.end(function (err, response){
+		  			if( err ){ return console.log(err); }
+		  			if( response.body && _.isObject(response.body) ){
+		  				data.set('post', response.body);
+		  			}
+	    			data.endTransition();
+		  		});
 	    }
 	}
 
 /***/ },
-/* 195 */
+/* 198 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _ = __webpack_require__(178);
@@ -29796,20 +29933,16 @@
 	    var data = options.data;
 	    var superagent = options.superagent;
 
-	    // var DEFAULT_STATE = {view: 'home'};
-
 	    this.setParamsFromUrl = function(){
-	console.log('parseParams', this.parseParams());
 	    	data.set('urlState', this.parseParams());
 	    }
 
 	    this.parseParams = function(){
 		    var match;
-		    var pl     = /\+/g;  // Regex for replacing addition symbol with a space
+		    var pl     = /\+/g;
 		    var search = /([^&=]+)=?([^&]*)/g;
 		    var decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); };
 		    var query  = window.location.search.substring(1);
-		    // var urlState = _.clone(DEFAULT_STATE);
 		    var urlState = {};
 		    while(match = search.exec(query)){
 		       urlState[decode(match[1])] = decode(match[2]);
@@ -29819,39 +29952,67 @@
 	}
 
 /***/ },
-/* 196 */
+/* 199 */
 /***/ function(module, exports) {
 
 	module.exports = function(options){
-
 		var controllers = options.controllers;
 		var data = options.data;
 
 		var navigate = this.navigate = function(params = null){
 			if( params ){ data.set('urlState', params); }
 			var urlState = data.get('urlState').toJS();
-	console.log('urlState.cat', urlState.cat)
 			if( urlState.cat ){
-				return controllers.post.load({categoryId: urlState.cat});
-			} else if( urlState.view === 'home'){
+				return controllers.post.load({cat: urlState.cat});
+			} else if( urlState.p ) {
+				return controllers.post.loadPost({p: urlState.p});
+			} else if( urlState.page_id ) {
+				return controllers.page.load({page: urlState.page_id});
+			} else if( urlState.tag ) {
+				return controllers.post.load({tag: urlState.tag});
+			} else if( urlState.view === 'home' ){
 				return controllers.post.load({categoryId: urlState.cat});
 			} else {
 				return this.navigate({view: 'home'});
 			}
-	return;
-			switch(urlState.view){
-				case 'home':
-					controllers.post.load();
-					break;
-				default:
-					this.navigate({view: 'home'});
-			}
 		}
+
 	    window.addEventListener("popstate", function(){
 	    	controllers.url.setParamsFromUrl();
 	    	navigate();
 	    });
 	}
+
+/***/ },
+/* 200 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var BaseComponent = __webpack_require__(179);
+	var React = __webpack_require__(6);
+
+	module.exports = BaseComponent.createClass({
+		goHome: function goHome() {
+			this.props.router.navigate({ view: 'home' });
+		},
+		render: function render() {
+			return React.createElement(
+				'div',
+				{ style: { marginBottom: '2rem' } },
+				React.createElement(
+					'h1',
+					{ onClick: this.goHome, style: { marginBottom: '0' } },
+					this.props.site.get('title')
+				),
+				React.createElement(
+					'small',
+					null,
+					this.props.site.get('description')
+				)
+			);
+		}
+	});
 
 /***/ }
 /******/ ]);

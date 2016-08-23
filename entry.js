@@ -1,2 +1,2 @@
-require("./style.css");
-require("./app/main.jsx");
+require('./style.css');
+require('./app/main.jsx');

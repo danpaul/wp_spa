@@ -3,8 +3,9 @@ var ReactDOM = require('react-dom');
 var Root = require('./components/root.jsx');
 
 var data = require('./data');
+data.set('site', wpData);
 var controllers = new (require('./controllers'))
-					  ({data: data, siteUrl: breczinski.siteUrl});
+					  ({data: data, siteUrl: wpData.siteUrl});
 var router = new(require('./router'))
 				({controllers: controllers, data: data});
 
@@ -22,4 +23,4 @@ var BaseComponent = React.createClass({
 	}
 });
 
-ReactDOM.render(<BaseComponent />, document.getElementById('content'));
+ReactDOM.render(<BaseComponent />, document.getElementById('app-container'));

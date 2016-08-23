@@ -3,7 +3,6 @@ var React = require('react');
 
 module.exports = BaseComponent.createClass({
 	render: function() {
-		if( !this.props.post.size ){ return null; }
 		var title = this.props.post.getIn(['title', 'rendered']);;
 		var content = this.props.post.getIn(['content', 'rendered']);
 		return <div style={{paddingBottom: '3rem'}}>

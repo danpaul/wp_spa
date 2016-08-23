@@ -1,12 +1,26 @@
 var _ = require('underscore');
+var config = require('./config');
 var Immutable = require('immutable');
 
 var callbacks = [];
-var data = Immutable.fromJS({
+
+var initialState = {
+	page: {},
+	post: {},
 	posts: [],
 	mainMenu: {},
+	loading: true,
+	site: {},
 	urlState: null
-});
+};
+// data that should be cleared when view changes
+var viewData = ['page', 'post', 'posts'];
+var data = Immutable.fromJS(initialState);
+
+var history = null;
+if( config.recordHistory ){
+	history = Immutable.List().push(data);
+}
 
 var mod = {
 	set: function(key, value){
@@ -15,6 +29,7 @@ var mod = {
 		} else {
 			data = data.set(key, mod._coerceValue(value));
 		}
+		if( history ){ history = history.push(data); }
 		mod._notifyListeners();
 	},
 	_coerceValue: function(value){
@@ -32,7 +47,20 @@ var mod = {
 		}
 	},
 	subscribe: function(callback){ callbacks.push(callback); },
-	_notifyListeners: function(){ _.each(callbacks, function(c){ c(); }); }
+	_notifyListeners: function(){ _.each(callbacks, function(c){ c(); }); },
+	startTransition: function(){
+		_.each(viewData, function(vd){
+			if( _.isObject(initialState[vd]) ){
+				mod.set(vd, {});
+			} else if( _.isArray(initialState[vd]) ) {
+				mod.set(vd, []);
+			}
+		});
+		mod.set('loading', true);
+	},
+	endTransition: function(){
+		mod.set('loading', false);
+	}
 }
 
 module.exports = mod;
