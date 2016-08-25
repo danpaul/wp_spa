@@ -11,7 +11,8 @@ module.exports = BaseComponent.createClass({
 		var title = this.props.post.getIn(['title', 'rendered']);;
 		var content = this.props.post.getIn(['content', 'rendered']);
 		return <div style={{paddingBottom: '3rem'}}>
-			<h3 onClick={this.gotoPost}><span dangerouslySetInnerHTML={{__html: title}} /></h3>
+			<h3 onClick={this.gotoPost} style={{marginBottom: 0}}><span dangerouslySetInnerHTML={{__html: title}} /></h3>
+			<small style={{display: 'block', marginBottom: '2rem'}}>{this.props.post.get('date')}</small>
 			<div dangerouslySetInnerHTML={{__html: content}} />
 		</div>;
 	}

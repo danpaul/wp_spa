@@ -1,5 +1,5 @@
 var config = {};
 
-config.recordHistory = true;
+config.recordHistory = false;
 
 module.exports = config;

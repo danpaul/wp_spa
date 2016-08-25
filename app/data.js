@@ -21,7 +21,7 @@ var data = Immutable.fromJS(initialState);
 
 var history = null;
 if( config.recordHistory ){
-	history = Immutable.List().push(data);
+	history = Immutable.List().push(Immutable.Map({data: data, time: Date.now()}));;
 }
 
 var mod = {
@@ -31,7 +31,10 @@ var mod = {
 		} else {
 			data = data.set(key, mod._coerceValue(value));
 		}
-		if( history ){ history = history.push(data); }
+		if( history ){
+			var d = Immutable.Map({data: data, time: Date.now()});
+			history = history.push(d);
+		}
 		mod._notifyListeners();
 	},
 	_coerceValue: function(value){
@@ -64,5 +67,25 @@ var mod = {
 		mod.set('loading', false);
 	}
 }
+
+var rewindHistory = function(history, callback){
+	var h = history.get(0);
+	data = h.get('data');
+	mod._notifyListeners();
+	if( history.size === 1 ){ return callback(); }
+	var timeDifference = h.get('time') - history.get(1).get('time');
+	setTimeout(function(){
+		rewindHistory(history.shift(), callback);
+	}, timeDifference);
+}
+
+document.addEventListener('wpspaRewindHistory', function(e){
+	var originalData = data;
+	rewindHistory(history.reverse(), function(){
+		data = originalData;
+		mod._notifyListeners();
+		console.log('Done!!!');
+	});
+}, false);
 
 module.exports = mod;

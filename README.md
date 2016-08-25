@@ -15,3 +15,12 @@ Requires Webpack to build
 ## Notes
 
 http://localhost:8888/wptest/?cat=1
+
+## Events
+
+`document.dispatchEvent(new Event('wpspaRewindHistory'));`
+
+
+## Todo
+- add dates
+- update readme
