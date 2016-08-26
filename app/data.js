@@ -6,6 +6,10 @@ var callbacks = [];
 
 var initialState = {
 	currentPage: null,
+	contactForm: {	message: '',
+				   	error: '',
+				   	sent: false,
+				   	sending: false	},
 	perPage: 10,
 	page: {},
 	post: {},

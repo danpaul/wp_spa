@@ -27,11 +27,13 @@ module.exports = BaseComponent.createClass({
 						menu={this.props.data.get('mainMenu')} />
 				</div>
 				<div className="column column-75">
-					<Loading loading={this.props.data.get('loading')} />
+					{this.props.data.get('loading') ? <Loading /> : null}
 					<Post
 						isPage={true}
 						router={this.props.router}
-						post={this.props.data.get('page')} />
+						post={this.props.data.get('page')}
+						contactForm={this.props.data.get('contactForm')}
+						controllers={this.props.controllers} />
 					<Post
 						router={this.props.router}
 						post={this.props.data.get('post')} />

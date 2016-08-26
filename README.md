@@ -16,6 +16,18 @@ The following plugins must be enabled:
 * [WP REST API](https://wordpress.org/plugins/json-rest-api/)
 * [WP API MENUS](https://wordpress.org/plugins/wp-api-menus/)
 
+## Contact form
+A basic contact form can be enabled which requires:
+* [WP REST API Contact plugin](https://github.com/danpaul/wp_api_contact)
+* Enable `config.enableContactForm` in `/app/config.js`
+* Create a page called "contact" in the WP admin
+
 ## To build durring developent
 
+First run `npm install` then:
+
 `webpack --progress --colors --watch`
+
+## Global events
+
+Rewind app (`config.recordHistory` must be `true`): `document.dispatchEvent(new Event('wpspaRewindHistory'));`
