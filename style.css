@@ -11,7 +11,8 @@ Tags: spa, minimal
 
 */
 
-@import './milligram.css';
+@import './css/milligram.css';
+@import './css/loader.css';
 
 a:hover{
   cursor: pointer;

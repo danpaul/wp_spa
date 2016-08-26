@@ -1,6 +1,7 @@
 var _ = require('underscore');
 var BaseComponent = require('../lib/baseComponent');
 var Header = require('./header.jsx');
+var Loading = require('./loading.jsx');
 var Menu = require('./menu.jsx');
 var Post = require('./post.jsx');
 var Posts = require('./posts.jsx');
@@ -26,6 +27,7 @@ module.exports = BaseComponent.createClass({
 						menu={this.props.data.get('mainMenu')} />
 				</div>
 				<div className="column column-75">
+					<Loading loading={this.props.data.get('loading')} />
 					<Post
 						isPage={true}
 						router={this.props.router}
