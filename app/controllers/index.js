@@ -1,5 +1,5 @@
 var _ = require('underscore');
-var superagent = require('superagent');
+var superagent = require('superagent-cache')();
 
 var CONTROLLERS = {
     menu: require('./menu.js'),
