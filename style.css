@@ -17,3 +17,8 @@ Tags: spa, minimal
 a:hover{
   cursor: pointer;
 }
+
+.post img{
+	width: 100%;
+	height: auto;
+}

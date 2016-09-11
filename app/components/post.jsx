@@ -24,7 +24,7 @@ module.exports = BaseComponent.createClass({
 						controllers={this.props.controllers} />
 		}
 
-		return <div style={{paddingBottom: '3rem'}}>
+		return <div className="post" style={{paddingBottom: '3rem'}}>
 			<h3 onClick={this.gotoPost} style={{marginBottom: 0}}><span dangerouslySetInnerHTML={{__html: title}} /></h3>
 			<small style={{display: 'block', marginBottom: '2rem'}}>{this.props.post.get('date')}</small>
 			<div dangerouslySetInnerHTML={{__html: content}} />

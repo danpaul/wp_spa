@@ -83,7 +83,7 @@
 	exports.i(__webpack_require__(5), "");
 
 	// module
-	exports.push([module.id, "/*\nTheme Name: wp_spa\nTheme URI: https://github.com/danpaul/wp_spa\nAuthor: Dan Breczinski\nAuthor URI: http://dan.breczinski.com\nDescription: wp_spa is an expirmental WordPress theme written as a single page application. wp_spa is intended for personal blogs/sites and due to the fact that it's a SPA will not play nicely with many other WP themes.\nVersion: 1.0\nLicense: GNU General Public License v2 or later\nLicense URI: http://www.gnu.org/licenses/gpl-2.0.html\nTags: spa, minimal\n\n*/\n\na:hover{\n  cursor: pointer;\n}", ""]);
+	exports.push([module.id, "/*\nTheme Name: wp_spa\nTheme URI: https://github.com/danpaul/wp_spa\nAuthor: Dan Breczinski\nAuthor URI: http://dan.breczinski.com\nDescription: wp_spa is an expirmental WordPress theme written as a single page application. wp_spa is intended for personal blogs/sites and due to the fact that it's a SPA will not play nicely with many other WP themes.\nVersion: 1.0\nLicense: GNU General Public License v2 or later\nLicense URI: http://www.gnu.org/licenses/gpl-2.0.html\nTags: spa, minimal\n\n*/\n\na:hover{\n  cursor: pointer;\n}\n\n.post img{\n\twidth: 100%;\n\theight: auto;\n}", ""]);
 
 	// exports
 
@@ -434,10 +434,10 @@
 	var ReactDOM = __webpack_require__(40);
 	var Root = __webpack_require__(179);
 
-	var data = __webpack_require__(192);
+	var data = __webpack_require__(194);
 	data.set('site', wpData);
-	var controllers = new (__webpack_require__(194))({ data: data, siteUrl: wpData.siteUrl });
-	var router = new (__webpack_require__(205))({ controllers: controllers, data: data });
+	var controllers = new (__webpack_require__(195))({ data: data, siteUrl: wpData.siteUrl });
+	var router = new (__webpack_require__(207))({ controllers: controllers, data: data });
 
 	var BaseComponent = React.createClass({
 		displayName: 'BaseComponent',
@@ -21501,10 +21501,10 @@
 	var Loading = __webpack_require__(185);
 	var Menu = __webpack_require__(186);
 	var Post = __webpack_require__(188);
-	var Posts = __webpack_require__(189);
+	var Posts = __webpack_require__(191);
 	var React = __webpack_require__(8);
-	var Url = __webpack_require__(190);
-	var Immutable = __webpack_require__(191);
+	var Url = __webpack_require__(192);
+	var Immutable = __webpack_require__(193);
 
 	module.exports = BaseComponent.createClass({
 		componentWillMount: function componentWillMount() {
@@ -23316,9 +23316,9 @@
 	'use strict';
 
 	var BaseComponent = __webpack_require__(181);
-	var Contact = __webpack_require__(206);
+	var Contact = __webpack_require__(189);
 	var React = __webpack_require__(8);
-	var config = __webpack_require__(193);
+	var config = __webpack_require__(190);
 
 	module.exports = BaseComponent.createClass({
 		gotoPost: function gotoPost() {
@@ -23346,7 +23346,7 @@
 
 			return React.createElement(
 				'div',
-				{ style: { paddingBottom: '3rem' } },
+				{ className: 'post', style: { paddingBottom: '3rem' } },
 				React.createElement(
 					'h3',
 					{ onClick: this.gotoPost, style: { marginBottom: 0 } },
@@ -23365,6 +23365,63 @@
 
 /***/ },
 /* 189 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var BaseComponent = __webpack_require__(181);
+	var Loading = __webpack_require__(185);
+	var React = __webpack_require__(8);
+
+	module.exports = BaseComponent.createClass({
+		render: function render() {
+			if (this.props.contactForm.get('sending')) {
+				return React.createElement(Loading, null);
+			}
+			if (this.props.contactForm.get('sent')) {
+				return React.createElement(
+					'div',
+					null,
+					'Thanks! Your message was sent.'
+				);
+			}
+			return React.createElement(
+				'div',
+				null,
+				React.createElement(
+					'label',
+					{ htmlFor: 'commentField' },
+					'Message'
+				),
+				React.createElement('textarea', { onChange: this.props.controllers.contact.updateMessage,
+					value: this.props.contactForm.get('message') }),
+				React.createElement(
+					'div',
+					{ style: { color: 'red' } },
+					this.props.contactForm.get('error')
+				),
+				React.createElement('input', {
+					className: 'button-primary',
+					onClick: this.props.controllers.contact.submit,
+					type: 'submit',
+					value: 'Send' })
+			);
+		}
+	});
+
+/***/ },
+/* 190 */
+/***/ function(module, exports) {
+
+	var config = {};
+
+	config.recordHistory = true;
+	config.enableContactForm = true; // requires page called "contact" and contact api plugin installed
+
+	module.exports = config;
+
+/***/ },
+/* 191 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23417,7 +23474,7 @@
 	});
 
 /***/ },
-/* 190 */
+/* 192 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23459,7 +23516,7 @@
 	});
 
 /***/ },
-/* 191 */
+/* 193 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -28443,12 +28500,12 @@
 	}));
 
 /***/ },
-/* 192 */
+/* 194 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _ = __webpack_require__(180);
-	var config = __webpack_require__(193);
-	var Immutable = __webpack_require__(191);
+	var config = __webpack_require__(190);
+	var Immutable = __webpack_require__(193);
 
 	var callbacks = [];
 
@@ -28543,29 +28600,18 @@
 	module.exports = mod;
 
 /***/ },
-/* 193 */
-/***/ function(module, exports) {
-
-	var config = {};
-
-	config.recordHistory = true;
-	config.enableContactForm = true; // requires page called "contact" and contact api plugin installed
-
-	module.exports = config;
-
-/***/ },
-/* 194 */
+/* 195 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _ = __webpack_require__(180);
-	var superagent = __webpack_require__(195)();
+	var superagent = __webpack_require__(196)();
 
 	var CONTROLLERS = {
-		contact: __webpack_require__(207),
-	    menu: __webpack_require__(201),
-	    page: __webpack_require__(202),
-	    post: __webpack_require__(203),
-	    url: __webpack_require__(204)
+		contact: __webpack_require__(202),
+	    menu: __webpack_require__(203),
+	    page: __webpack_require__(204),
+	    post: __webpack_require__(205),
+	    url: __webpack_require__(206)
 	}
 
 	module.exports = function(options){
@@ -28580,10 +28626,10 @@
 	}
 
 /***/ },
-/* 195 */
+/* 196 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var utils = __webpack_require__(196);
+	var utils = __webpack_require__(197);
 
 	/**
 	 * superagentCache constructor
@@ -28594,10 +28640,10 @@
 	 */
 	module.exports = function(agent, cache, defaults){
 
-	  var superagent = (agent) ? agent : __webpack_require__(197);
+	  var superagent = (agent) ? agent : __webpack_require__(198);
 
 	  if(!superagent.patchedBySuperagentCache){
-	    superagent.cache = (cache && cache.get) ? cache : new (__webpack_require__(200))(cache);
+	    superagent.cache = (cache && cache.get) ? cache : new (__webpack_require__(201))(cache);
 	    superagent.defaults = defaults || {};
 	    var Request = superagent.Request;
 	    var props = utils.resetProps(superagent.defaults);
@@ -28798,7 +28844,7 @@
 
 
 /***/ },
-/* 196 */
+/* 197 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -29025,15 +29071,15 @@
 
 
 /***/ },
-/* 197 */
+/* 198 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Module dependencies.
 	 */
 
-	var Emitter = __webpack_require__(198);
-	var reduce = __webpack_require__(199);
+	var Emitter = __webpack_require__(199);
+	var reduce = __webpack_require__(200);
 
 	/**
 	 * Root reference for iframes.
@@ -30222,7 +30268,7 @@
 
 
 /***/ },
-/* 198 */
+/* 199 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -30391,7 +30437,7 @@
 
 
 /***/ },
-/* 199 */
+/* 200 */
 /***/ function(module, exports) {
 
 	
@@ -30420,7 +30466,7 @@
 	};
 
 /***/ },
-/* 200 */
+/* 201 */
 /***/ function(module, exports) {
 
 	/**
@@ -30712,7 +30758,48 @@
 
 
 /***/ },
-/* 201 */
+/* 202 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(180);
+	var GENERIC_ERROR ='Sorry, an unknown error occurred';
+	module.exports = function(options){
+
+	    var controllers = options.controllers;
+	    var data = options.data;
+	    var superagent = options.superagent;
+	    var siteUrl = options.siteUrl;
+
+	    this.updateMessage = function(event){
+	    	data.set(['contactForm', 'message'], event.target.value);
+	    }
+	    this.submit = function(){
+	    	data.set(['contactForm', 'sending'], true);
+	    	var query = { rest_route: '/wp-api-contact/v1/send' };
+			superagent
+		  		.post(siteUrl + '/')
+		  		.query(query)
+		  		.send({ message: data.get(['contactForm', 'message']) })
+		  		.end(function (err, response){
+		  			data.set(['contactForm', 'sending'], false);
+		  			if( err ){
+		  				console.log(err);
+		  				return data.set(['contactForm', 'error'], GENERIC_ERROR);
+		  			}
+		  			if( response.body.error ){
+		  				return data.set(['contactForm', 'error'],
+		  								response.body.error);
+		  			}
+		  			data.set(['contactForm', 'error'], '');
+		  			data.set(['contactForm', 'message'], '');
+		  			data.set(['contactForm', 'sent'], true);
+		  		}
+			);
+	    }
+	}
+
+/***/ },
+/* 203 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _ = __webpack_require__(180);
@@ -30754,7 +30841,7 @@
 	}
 
 /***/ },
-/* 202 */
+/* 204 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _ = __webpack_require__(180);
@@ -30781,7 +30868,7 @@
 	}
 
 /***/ },
-/* 203 */
+/* 205 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _ = __webpack_require__(180);
@@ -30836,7 +30923,7 @@
 	}
 
 /***/ },
-/* 204 */
+/* 206 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _ = __webpack_require__(180);
@@ -30868,7 +30955,7 @@
 	}
 
 /***/ },
-/* 205 */
+/* 207 */
 /***/ function(module, exports) {
 
 	module.exports = function(options){
@@ -30916,93 +31003,6 @@
 	    	controllers.url.setParamsFromUrl();
 	    	navigate();
 	    });
-	}
-
-/***/ },
-/* 206 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var BaseComponent = __webpack_require__(181);
-	var Loading = __webpack_require__(185);
-	var React = __webpack_require__(8);
-
-	module.exports = BaseComponent.createClass({
-		render: function render() {
-			if (this.props.contactForm.get('sending')) {
-				return React.createElement(Loading, null);
-			}
-			if (this.props.contactForm.get('sent')) {
-				return React.createElement(
-					'div',
-					null,
-					'Thanks! Your message was sent.'
-				);
-			}
-			return React.createElement(
-				'div',
-				null,
-				React.createElement(
-					'label',
-					{ htmlFor: 'commentField' },
-					'Message'
-				),
-				React.createElement('textarea', { onChange: this.props.controllers.contact.updateMessage,
-					value: this.props.contactForm.get('message') }),
-				React.createElement(
-					'div',
-					{ style: { color: 'red' } },
-					this.props.contactForm.get('error')
-				),
-				React.createElement('input', {
-					className: 'button-primary',
-					onClick: this.props.controllers.contact.submit,
-					type: 'submit',
-					value: 'Send' })
-			);
-		}
-	});
-
-/***/ },
-/* 207 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _ = __webpack_require__(180);
-	var GENERIC_ERROR ='Sorry, an unknown error occurred';
-	module.exports = function(options){
-
-	    var controllers = options.controllers;
-	    var data = options.data;
-	    var superagent = options.superagent;
-	    var siteUrl = options.siteUrl;
-
-	    this.updateMessage = function(event){
-	    	data.set(['contactForm', 'message'], event.target.value);
-	    }
-	    this.submit = function(){
-	    	data.set(['contactForm', 'sending'], true);
-	    	var query = { rest_route: '/wp-api-contact/v1/send' };
-			superagent
-		  		.post(siteUrl + '/')
-		  		.query(query)
-		  		.send({ message: data.get(['contactForm', 'message']) })
-		  		.end(function (err, response){
-		  			data.set(['contactForm', 'sending'], false);
-		  			if( err ){
-		  				console.log(err);
-		  				return data.set(['contactForm', 'error'], GENERIC_ERROR);
-		  			}
-		  			if( response.body.error ){
-		  				return data.set(['contactForm', 'error'],
-		  								response.body.error);
-		  			}
-		  			data.set(['contactForm', 'error'], '');
-		  			data.set(['contactForm', 'message'], '');
-		  			data.set(['contactForm', 'sent'], true);
-		  		}
-			);
-	    }
 	}
 
 /***/ }
