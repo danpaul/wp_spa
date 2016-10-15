@@ -8,7 +8,6 @@ module.exports = BaseComponent.createClass({
 	render: function() {
 		return <div style={{marginBottom: '2rem'}}>
 			<h1 onClick={this.goHome} style={{marginBottom: '0'}}>{this.props.site.get('title')}</h1>
-			<small>{this.props.site.get('description')}</small>
 		</div>;
 	}
 });
