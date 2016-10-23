@@ -16,7 +16,7 @@ function enqueue_script(){
     wp_enqueue_script('theme-script',
                       get_template_directory_uri(). '/bundle.js',
                       null,
-                      '1.0.1',
+                      '1.0.3',
                       true);
 }
 add_action('wp_enqueue_scripts', 'enqueue_script');

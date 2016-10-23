@@ -83,7 +83,7 @@
 	exports.i(__webpack_require__(5), "");
 
 	// module
-	exports.push([module.id, "/*\nTheme Name: wp_spa\nTheme URI: https://github.com/danpaul/wp_spa\nAuthor: Dan Breczinski\nAuthor URI: http://dan.breczinski.com\nDescription: wp_spa is an expirmental WordPress theme written as a single page application. wp_spa is intended for personal blogs/sites and due to the fact that it's a SPA will not play nicely with many other WP themes.\nVersion: 1.0\nLicense: GNU General Public License v2 or later\nLicense URI: http://www.gnu.org/licenses/gpl-2.0.html\nTags: spa, minimal\n\n*/\n\na:hover{\n  cursor: pointer;\n}\n\n.post img{\n\twidth: 100%;\n\theight: auto;\n}", ""]);
+	exports.push([module.id, "/*\nTheme Name: wp_spa\nTheme URI: https://github.com/danpaul/wp_spa\nAuthor: Dan Breczinski\nAuthor URI: http://dan.breczinski.com\nDescription: wp_spa is an expirmental WordPress theme written as a single page application. wp_spa is intended for personal blogs/sites and due to the fact that it's a SPA will not play nicely with many other WP themes.\nVersion: 1.0\nLicense: GNU General Public License v2 or later\nLicense URI: http://www.gnu.org/licenses/gpl-2.0.html\nTags: spa, minimal\n\n*/\n\na:hover{\n  cursor: pointer;\n}\n\n.post img{\n    width: auto;\n    height: auto;\n    max-width: 100%;\n    max-height: 700px;\n}", ""]);
 
 	// exports
 
@@ -23186,11 +23186,6 @@
 					'h1',
 					{ onClick: this.goHome, style: { marginBottom: '0' } },
 					this.props.site.get('title')
-				),
-				React.createElement(
-					'small',
-					null,
-					this.props.site.get('description')
 				)
 			);
 		}
